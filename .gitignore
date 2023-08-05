@@ -1,6 +1,7 @@
 __pycache__
 audio
-graphics
+graphics/*
+!graphics/icons
 map
 map_old
 matrix.csv
