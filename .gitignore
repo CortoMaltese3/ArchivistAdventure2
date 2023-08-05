@@ -4,4 +4,7 @@ graphics
 map
 map_old
 matrix.csv
-code
+code/*
+!code/map_generator.py
+!code/settings.py
+grid.csv
