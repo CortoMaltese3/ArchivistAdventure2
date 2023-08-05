@@ -7,7 +7,7 @@ class Grid:
         self.cols = cols
         self.cell_size = cell_size
         self.grid = [[0]*cols for _ in range(rows)]
-        self.color_map = {"white": 0, "black": 1}
+        self.color_map = {"white": 0, "black": 1, "red": 2, "green": 3, "blue": 4}
         self.current_color = "black"
         self.canvas = tk.Canvas(master, 
                                 width=self.cols*self.cell_size, 
@@ -19,6 +19,7 @@ class Grid:
                 self.draw_cell(row, col)
 
         self.canvas.bind("<Button-1>", self.click)
+        self.canvas.bind("<B1-Motion>", self.click)
 
     def click(self, event):
         row = event.y // self.cell_size
@@ -40,18 +41,14 @@ class Grid:
 
 class ColorChooser:
     def __init__(self, master, grid):
-        self.entry = tk.Entry(master)
-        self.entry.pack()
-        self.entry.bind("<Return>", self.add_color)
         self.grid = grid
+        self.variable = tk.StringVar(master)
+        self.variable.set(list(grid.color_map.keys())[0]) # default value
+        self.option_menu = tk.OptionMenu(master, self.variable, *grid.color_map.keys(), command=self.choose_color)
+        self.option_menu.pack()
 
-    def add_color(self, event):
-        new_color = self.entry.get()
-        if new_color not in self.grid.color_map:
-            new_number = max(self.grid.color_map.values()) + 1
-            self.grid.color_map[new_color] = new_number
-        self.grid.current_color = new_color
-        self.entry.delete(0, tk.END)
+    def choose_color(self, value):
+        self.grid.current_color = value
 
 def key(event):
     if event.char == 's':
