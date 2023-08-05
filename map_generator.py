@@ -24,8 +24,9 @@ class Grid:
     def click(self, event):
         row = event.y // self.cell_size
         col = event.x // self.cell_size
-        self.grid[row][col] = self.color_map[self.current_color]
-        self.draw_cell(row, col)
+        if 0 <= row < self.rows and 0 <= col < self.cols:
+            self.grid[row][col] = self.color_map[self.current_color]
+            self.draw_cell(row, col)
 
     def draw_cell(self, row, col):
         x1 = col * self.cell_size
