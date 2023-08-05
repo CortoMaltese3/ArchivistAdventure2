@@ -7,6 +7,8 @@ class Grid:
         self.cols = cols
         self.cell_size = cell_size
         self.grid = [[0]*cols for _ in range(rows)]
+        self.color_map = {"white": 0, "black": 1}
+        self.current_color = "black"
         self.canvas = tk.Canvas(master, 
                                 width=self.cols*self.cell_size, 
                                 height=self.rows*self.cell_size)
@@ -21,7 +23,7 @@ class Grid:
     def click(self, event):
         row = event.y // self.cell_size
         col = event.x // self.cell_size
-        self.grid[row][col] = 1 - self.grid[row][col]  # toggle cell state
+        self.grid[row][col] = self.color_map[self.current_color]
         self.draw_cell(row, col)
 
     def draw_cell(self, row, col):
@@ -29,12 +31,27 @@ class Grid:
         y1 = row * self.cell_size
         x2 = x1 + self.cell_size
         y2 = y1 + self.cell_size
-        color = "black" if self.grid[row][col] else "white"
+        color = list(self.color_map.keys())[list(self.color_map.values()).index(self.grid[row][col])]
         self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, width=1)
 
     def save_grid(self):
         df = pd.DataFrame(self.grid)
         df.to_csv('grid.csv', index=False, header=False)
+
+class ColorChooser:
+    def __init__(self, master, grid):
+        self.entry = tk.Entry(master)
+        self.entry.pack()
+        self.entry.bind("<Return>", self.add_color)
+        self.grid = grid
+
+    def add_color(self, event):
+        new_color = self.entry.get()
+        if new_color not in self.grid.color_map:
+            new_number = max(self.grid.color_map.values()) + 1
+            self.grid.color_map[new_color] = new_number
+        self.grid.current_color = new_color
+        self.entry.delete(0, tk.END)
 
 def key(event):
     if event.char == 's':
@@ -42,5 +59,6 @@ def key(event):
 
 root = tk.Tk()
 g = Grid(root)
+c = ColorChooser(root, g)
 root.bind('<Key>', key)
 root.mainloop()
