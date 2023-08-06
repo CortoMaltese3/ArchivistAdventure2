@@ -8,10 +8,6 @@ audio/*
 graphics/*
 !graphics/icons
 
-# maps
-map
-map_old
-
 # code
 code/*
 !code/settings.py
