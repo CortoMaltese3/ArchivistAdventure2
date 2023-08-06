@@ -26,7 +26,7 @@ BAR_HEIGHT = 20
 HEALTH_BAR_WIDTH = 200
 ENERGY_BAR_WIDTH = 140
 ITEM_BOX_SIZE = 80
-FONT_PATH = GRAPHICS_PATH / "font" / "joystix.ttf"
+UI_FONT = GRAPHICS_PATH / "font" / "joystix.ttf"
 UI_FONT_SIZE = 18
 
 # general colors
@@ -86,5 +86,16 @@ monster_data = {
         "resistance": 3,
         "attack_radius": 50,
         "notice_radius": 300,
+    },
+    "squid": {
+        "health": 100,
+        "exp": 100,
+        "damage": 20,
+        "attack_type": "slash",
+        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
+        "speed": 3,
+        "resistance": 3,
+        "attack_radius": 80,
+        "notice_radius": 360,
     },
 }
