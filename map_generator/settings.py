@@ -10,7 +10,7 @@ COLOR_MAP = {
     "wall": ("black", 395),
     "player": ("gold", 394),
     "grass": ("green", 8),
-    "water": ("blue", 4),
+    "water": ("blue", 274),
     "enemy": ("red", 390),
     "object": ("brown", 3),
 }

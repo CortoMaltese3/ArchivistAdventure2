@@ -6,6 +6,8 @@ BASE_PATH = Path(__file__).parent.parent
 # Get the main directories of the application
 CODE_PATH = BASE_PATH / "code"
 GRAPHICS_PATH = BASE_PATH / "graphics"
+AUDIO_PATH = BASE_PATH / "audio"
+MAP_PATH = BASE_PATH / "map"
 
 # game setup
 WIDTH = 1280
@@ -70,7 +72,6 @@ magic_data = {
 }
 
 # enemy
-AUDIO_PATH = BASE_PATH / "audio"
 monster_data = {
     "bamboo": {
         "health": 70,
