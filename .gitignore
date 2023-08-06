@@ -15,3 +15,4 @@ map_old
 # code
 code/*
 !code/settings.py
+!code/main.py

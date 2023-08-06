@@ -39,6 +39,7 @@ TEXT_COLOR = "#EEEEEE"
 HEALTH_COLOR = "red"
 ENERGY_COLOR = "blue"
 UI_BORDER_COLOR_ACTIVE = "gold"
+BLACK_COLOR = "black"
 
 # upgrade menu
 TEXT_COLOR_SELECTED = "#111111"
@@ -97,5 +98,16 @@ monster_data = {
         "resistance": 3,
         "attack_radius": 80,
         "notice_radius": 360,
+    },
+    "spirit": {
+        "health": 100,
+        "exp": 110,
+        "damage": 8,
+        "attack_type": "thunder",
+        "attack_sound": AUDIO_PATH / "attack/fireball.wav",
+        "speed": 4,
+        "resistance": 3,
+        "attack_radius": 60,
+        "notice_radius": 350,
     },
 }
