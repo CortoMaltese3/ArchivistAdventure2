@@ -13,6 +13,8 @@ TILEMAP_PATH = GRAPHICS_PATH / "tilemap"
 # Get secondary directories of the application
 PARTICLES_PATH = GRAPHICS_PATH / "particles"
 WEAPONS_PATH = GRAPHICS_PATH / "weapons"
+MONSTERS_PATH = GRAPHICS_PATH / "monsters"
+ICONS_PATH = GRAPHICS_PATH / "icons"
 
 # game setup
 WIDTH = 1280
