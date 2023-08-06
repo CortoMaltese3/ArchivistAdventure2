@@ -4,10 +4,15 @@ from pathlib import Path
 BASE_PATH = Path(__file__).parent.parent
 
 # Get the main directories of the application
+AUDIO_PATH = BASE_PATH / "audio"
 CODE_PATH = BASE_PATH / "code"
 GRAPHICS_PATH = BASE_PATH / "graphics"
-AUDIO_PATH = BASE_PATH / "audio"
 MAP_PATH = BASE_PATH / "map"
+TILEMAP_PATH = GRAPHICS_PATH / "tilemap"
+
+# Get secondary directories of the application
+PARTICLES_PATH = GRAPHICS_PATH / "particles"
+WEAPONS_PATH = GRAPHICS_PATH / "weapons"
 
 # game setup
 WIDTH = 1280
@@ -42,7 +47,6 @@ BAR_COLOR_SELECTED = "#111111"
 UPGRADE_BG_COLOR_SELECTED = "#EEEEEE"
 
 # weapons
-WEAPONS_PATH = GRAPHICS_PATH / "weapons"
 weapon_data = {
     "sword": {
         "cooldown": 100,
@@ -57,7 +61,6 @@ weapon_data = {
 }
 
 # magic
-PARTICLES_PATH = GRAPHICS_PATH / "particles"
 magic_data = {
     "flame": {
         "strength": 5,
@@ -78,7 +81,7 @@ monster_data = {
         "exp": 120,
         "damage": 6,
         "attack_type": "leaf_attack",
-        "attack_sound": AUDIO_PATH / "attack"/ "slash.wav",
+        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
         "speed": 3,
         "resistance": 3,
         "attack_radius": 50,
