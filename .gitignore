@@ -1,9 +1,16 @@
 __pycache__
-audio
+
+# audio
+audio/*
+
+# graphics
 graphics/*
 !graphics/icons
+
+# maps
 map
 map_old
-matrix.csv
+
+# code
 code/*
-grid.csv
+!code/settings.py
