@@ -23,3 +23,4 @@ code/*
 !code/settings.py
 !code/main.py
 !code/support.py
+!code/tile.py
