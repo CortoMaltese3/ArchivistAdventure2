@@ -24,3 +24,4 @@ code/*
 !code/main.py
 !code/support.py
 !code/tile.py
+!code/entity.py
