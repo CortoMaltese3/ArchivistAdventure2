@@ -3,10 +3,20 @@ __pycache__
 
 # audio
 audio/*
+!audio/desert.wav
 
 # graphics
-graphics/*
-!graphics/icons
+graphics/tilemap/*
+graphics/font/*
+graphics/grass/*
+graphics/monsters/*
+graphics/objects/*
+graphics/particles/*
+graphics/player/*
+graphics/test/*
+graphics/weapons/*
+
+!graphics/tilemap/ground.png
 
 # code
 code/*
