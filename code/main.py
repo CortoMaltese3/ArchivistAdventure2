@@ -5,7 +5,6 @@ from level import Level
 
 class Game:
     def __init__(self):
-
         # general setup
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGTH))
@@ -17,7 +16,7 @@ class Game:
         self.level = Level()
 
         # sound
-        main_sound = pygame.mixer.Sound(AUDIO_PATH / "main.ogg")
+        main_sound = pygame.mixer.Sound(AUDIO_PATH / "desert.wav")
         main_sound.set_volume(0.5)
         main_sound.play(loops=-1)
 
