@@ -1,6 +1,9 @@
-import pygame, sys
-from settings import *
+import sys
+
+import pygame
+
 from level import Level
+from settings import WIDTH, HEIGTH, ICONS_PATH, AUDIO_PATH, BLACK_COLOR, FPS
 
 
 class Game:

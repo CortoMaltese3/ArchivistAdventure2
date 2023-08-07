@@ -1,6 +1,6 @@
 import pygame
 
-from settings import TILESIZE, HITBOX_OFFSET
+from settings import HITBOX_OFFSET, TILESIZE
 
 
 class Tile(pygame.sprite.Sprite):
