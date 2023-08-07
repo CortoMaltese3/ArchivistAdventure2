@@ -3,7 +3,7 @@ __pycache__
 
 # audio
 audio/*
-!audio/desert.wav
+!audio/desert.ogg
 
 # graphics
 graphics/tilemap/*

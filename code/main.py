@@ -16,7 +16,7 @@ class Game:
         self.level = Level()
 
         # sound
-        main_sound = pygame.mixer.Sound(AUDIO_PATH / "desert.wav")
+        main_sound = pygame.mixer.Sound(AUDIO_PATH / "desert.ogg")
         main_sound.set_volume(0.5)
         main_sound.play(loops=-1)
 
