@@ -22,3 +22,4 @@ graphics/weapons/*
 code/*
 !code/settings.py
 !code/main.py
+!code/support.py
