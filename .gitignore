@@ -26,5 +26,4 @@ graphics/weapons/*
 # code
 code/enemy.py
 code/level.py
-code/magic.py
 code/player.py
