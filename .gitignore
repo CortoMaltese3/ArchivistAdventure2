@@ -24,7 +24,6 @@ graphics/weapons/*
 !graphics/monsters/scarab
 
 # code
-code/debug.py
 code/enemy.py
 code/level.py
 code/magic.py
