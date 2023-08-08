@@ -1,7 +1,14 @@
 from pathlib import Path
+import sys
 
 # Get the base path of the application
-BASE_PATH = Path(__file__).parent.parent
+if getattr(sys, "frozen", False):
+    # If the application is run as a bundle/exe with PyInstaller,
+    # use the right path
+    BASE_PATH = Path(sys._MEIPASS)
+else:
+    # Else use the path of the script being run
+    BASE_PATH = Path(__file__).parent.parent
 
 # Get the main directories of the application
 AUDIO_PATH = BASE_PATH / "audio"
@@ -112,7 +119,7 @@ monster_data = {
         "attack_radius": 60,
         "notice_radius": 350,
     },
-        "scarab": {
+    "scarab": {
         "health": 70,
         "exp": 120,
         "damage": 6,

@@ -16,8 +16,10 @@ a = Analysis(['code/main.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
+
 pyz = PYZ(a.pure, a.zipped_data,
           cipher=block_cipher)
+
 exe = EXE(pyz,
           a.scripts,
           a.binaries,
@@ -32,4 +34,5 @@ exe = EXE(pyz,
           upx_exclude=[],
           upx_compress=False,
           runtime_tmpdir=None,
-          console=False)
+          console=False,
+          icon='graphics/icons/icon.ico')
