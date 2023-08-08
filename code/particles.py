@@ -24,6 +24,7 @@ class AnimationPlayer:
             "raccoon": import_folder(PARTICLES_PATH / "raccoon"),
             "spirit": import_folder(PARTICLES_PATH / "nova"),
             "scarab": import_folder(PARTICLES_PATH / "scarab"),
+            "book": import_folder(PARTICLES_PATH / "book"),
             "bamboo": import_folder(PARTICLES_PATH / "bamboo"),
             # leafs
             "leaf": (

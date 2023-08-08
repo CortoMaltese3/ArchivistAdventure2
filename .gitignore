@@ -23,7 +23,9 @@ graphics/weapons/*
 
 !graphics/tilemap/ground.png
 !graphics/particles/scarab
+!graphics/particles/book
 !graphics/monsters/scarab
+!graphics/monsters/book
 
 # code
 code/enemy.py
