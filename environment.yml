@@ -1,0 +1,8 @@
+name: archivist_adventure_2
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pip:
+      - pygame
+      - pyinstaller
