@@ -1,5 +1,7 @@
 __pycache__
 .vscode
+build
+dist
 
 # audio
 audio_samples
