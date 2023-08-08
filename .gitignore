@@ -24,10 +24,8 @@ graphics/weapons/*
 !graphics/monsters/scarab
 
 # code
-code/*
-!code/settings.py
-!code/main.py
-!code/support.py
-!code/tile.py
-!code/entity.py
-!code/weapon.py
+code/debug.py
+code/enemy.py
+code/level.py
+code/magic.py
+code/player.py
