@@ -11,6 +11,7 @@ from weapon import Weapon
 from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
+from ui import UI
 
 
 class Level:
@@ -30,6 +31,9 @@ class Level:
 
         # sprite setup
         self.create_map()
+
+        # user interface 
+        self.ui = UI()
 
         # particles
         self.animation_player = AnimationPlayer()
@@ -164,6 +168,7 @@ class Level:
 
     def run(self):
         self.visible_sprites.custom_draw(self.player)
+        self.ui.display(self.player)
 
         if self.game_paused:
             self.upgrade.display()
