@@ -87,39 +87,6 @@ magic_data = {
 
 # enemy
 monster_data = {
-    "bamboo": {
-        "health": 70,
-        "exp": 120,
-        "damage": 6,
-        "attack_type": "leaf_attack",
-        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
-        "speed": 3,
-        "resistance": 3,
-        "attack_radius": 50,
-        "notice_radius": 300,
-    },
-    "squid": {
-        "health": 100,
-        "exp": 100,
-        "damage": 20,
-        "attack_type": "slash",
-        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
-        "speed": 3,
-        "resistance": 3,
-        "attack_radius": 80,
-        "notice_radius": 360,
-    },
-    "spirit": {
-        "health": 100,
-        "exp": 110,
-        "damage": 8,
-        "attack_type": "thunder",
-        "attack_sound": AUDIO_PATH / "attack/fireball.wav",
-        "speed": 4,
-        "resistance": 3,
-        "attack_radius": 60,
-        "notice_radius": 350,
-    },
     "scarab": {
         "health": 70,
         "exp": 120,
@@ -136,7 +103,7 @@ monster_data = {
         "exp": 120,
         "damage": 6,
         "attack_type": "thunder",
-        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
+        "attack_sound": AUDIO_PATH / "attack" / "fireball.wav",
         "speed": 3,
         "resistance": 3,
         "attack_radius": 50,

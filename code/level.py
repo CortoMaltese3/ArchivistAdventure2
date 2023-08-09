@@ -97,18 +97,12 @@ class Level:
                                     self.input_handler,
                                 )
                             else:
-                                if col == "390":
-                                    monster_name = "bamboo"
-                                elif col == "391":
-                                    monster_name = "spirit"
-                                elif col == "392":
-                                    monster_name = "raccoon"
-                                elif col == "397":
+                                if col == "397":
                                     monster_name = "scarab"
                                 elif col == "398":
                                     monster_name = "book"
                                 else:
-                                    monster_name = "squid"
+                                    monster_name = "book" # TODO: Change it
                                 Enemy(
                                     monster_name,
                                     (x, y),
