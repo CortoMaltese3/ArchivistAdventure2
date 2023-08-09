@@ -4,12 +4,10 @@ build
 dist
 
 # audio
-audio_samples
 audio/*
 !audio/desert.ogg
 
 # graphics
-graphics_samples/*
 
 graphics/tilemap/*
 graphics/grass/*
@@ -25,3 +23,6 @@ graphics/weapons/*
 !graphics/monsters/book
 
 !graphics_samples/player_sprites
+
+# resources
+resources
