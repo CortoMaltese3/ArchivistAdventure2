@@ -12,7 +12,6 @@ audio/*
 graphics_samples
 
 graphics/tilemap/*
-graphics/font/*
 graphics/grass/*
 graphics/monsters/*
 graphics/objects/*
