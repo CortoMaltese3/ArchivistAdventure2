@@ -13,6 +13,7 @@ from particles import AnimationPlayer
 from magic import MagicPlayer
 from ui import UI
 from input_handler import InputHandler
+from level_data import levels
 
 
 class Level:
@@ -23,6 +24,9 @@ class Level:
 
         # get the stage
         self.stage = stage
+
+        # get the level data for the current stage
+        self.level_data = levels[stage]
 
         # controller setup
         self.input_handler = InputHandler()
@@ -47,14 +51,15 @@ class Level:
         self.magic_player = MagicPlayer(self.animation_player)
 
     def create_map(self):
+        # use the level data
         layouts = {
-            "boundary": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_FloorBlocks.csv"),
-            "grass": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_Grass.csv"),
-            "object": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_Objects.csv"),
-            "entities": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_Entities.csv"),
+            "boundary": import_csv_layout(self.level_data['constraints']),
+            "grass": import_csv_layout(self.level_data['grass']),
+            "object": import_csv_layout(self.level_data['objects']),
+            "entities": import_csv_layout(self.level_data['entities']),
         }
         graphics = {
-            "grass": import_folder(GRAPHICS_PATH / "Grass"),
+            "grass": import_folder(GRAPHICS_PATH / "grass"),
             "objects": import_folder(GRAPHICS_PATH / "objects"),
         }
 
@@ -192,8 +197,8 @@ class YSortCameraGroup(pygame.sprite.Group):
         # Set stage
         self.stage = stage
 
-        # creating the floor
-        self.floor_surf = pygame.image.load(LEVEL_PATH / f"{self.stage}" / "ground.png").convert()
+        # use the ground image from level data
+        self.floor_surf = pygame.image.load(levels[stage]['ground']).convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
