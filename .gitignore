@@ -10,7 +10,6 @@ graphics/grass/*
 graphics/monsters/*
 graphics/objects/*
 graphics/particles/*
-graphics/weapons/*
 
 !graphics/tilemap/ground.png
 !graphics/particles/scarab
