@@ -1,27 +1,18 @@
 from settings import GRAPHICS_PATH, LEVEL_PATH
 
-level_0 = {
-            'ground': LEVEL_PATH / "0" / "ground.png",
-            'constraints': LEVEL_PATH / "0" / "map_FloorBlocks.csv",
-            'entities': LEVEL_PATH / "0" / "map_Entities.csv",
-            'grass': LEVEL_PATH / "0" / "map_Grass.csv",
-            'objects': LEVEL_PATH / "0" / "map_Objects.csv",
-            'node_graphics': GRAPHICS_PATH  / "overworld" / "0",
-            'unlock': 1,
-        }
-
-level_1 = {
-            'ground': LEVEL_PATH / "1" / "ground.png",
-            'constraints': LEVEL_PATH / "1" / "map_FloorBlocks.csv",
-            'entities': LEVEL_PATH / "1" / "map_Entities.csv",
-            'grass': LEVEL_PATH / "1" / "map_Grass.csv",
-            'objects': LEVEL_PATH / "1" / "map_Objects.csv",
-            'node_graphics': GRAPHICS_PATH  / "overworld" / "1",
-            'unlock': 2,
-        }
-
+def create_level(level_num, node_pos):
+    return {
+        'ground': LEVEL_PATH / str(level_num) / "ground.png",
+        'constraints': LEVEL_PATH / str(level_num) / "map_FloorBlocks.csv",
+        'entities': LEVEL_PATH / str(level_num) / "map_Entities.csv",
+        'grass': LEVEL_PATH / str(level_num) / "map_Grass.csv",
+        'objects': LEVEL_PATH / str(level_num) / "map_Objects.csv",
+        'node_graphics': GRAPHICS_PATH  / "overworld" / str(level_num),
+        'node_pos': node_pos,
+        'unlock': level_num + 1,
+    }
 
 levels = {
-	0: level_0,
-	1: level_1,
+    0: create_level(0, (110,400)),
+    1: create_level(1, (300,220)),
 }
