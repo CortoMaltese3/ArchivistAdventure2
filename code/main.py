@@ -19,17 +19,28 @@ class Game:
         self.current_level = 0
 
         # sound
-        main_sound = pygame.mixer.Sound(AUDIO_PATH / "desert.ogg")
-        main_sound.set_volume(0.5)
-        main_sound.play(loops=-1)
+        self.main_sound = pygame.mixer.Sound(AUDIO_PATH / "desert.ogg")
+        self.overworld_sound = pygame.mixer.Sound(AUDIO_PATH / "overworld.ogg")  # Overworld music
+        self.main_sound.set_volume(0.5)
+        self.overworld_sound.set_volume(0.5)
+        self.play_overworld_music()
 
         # overworld creation
         self.overworld = Overworld(self.current_level, self.max_level, self.screen, self.create_level)
         self.status = 'overworld'
 
+    def play_overworld_music(self):
+        self.main_sound.stop()  # Stop the level music
+        self.overworld_sound.play(loops=-1)  # Play overworld music
+
+    def play_level_music(self):
+        self.overworld_sound.stop()  # Stop overworld music
+        self.main_sound.play(loops=-1)  # Play level music
+
     def create_level(self, selected_level):
         self.level = Level(stage=selected_level)
         self.status = 'level'
+        self.play_level_music()  # Switch to level music
 
     def run(self):
         while True:
