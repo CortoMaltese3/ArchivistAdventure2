@@ -1,4 +1,4 @@
-from settings import GRAPHICS_PATH, LEVEL_PATH
+from settings import GRAPHICS_PATH, LEVEL_PATH, AUDIO_PATH
 
 def create_level(level_num, node_pos):
     return {
@@ -10,6 +10,7 @@ def create_level(level_num, node_pos):
         'node_graphics': GRAPHICS_PATH  / "overworld" / str(level_num),
         'node_pos': node_pos,
         'unlock': level_num + 1,
+        "bg_music": AUDIO_PATH / f'{str(level_num)}.ogg'
     }
 
 levels = {
