@@ -9,14 +9,13 @@ audio/*
 !audio/desert.ogg
 
 # graphics
-graphics_samples
+graphics_samples/*
 
 graphics/tilemap/*
 graphics/grass/*
 graphics/monsters/*
 graphics/objects/*
 graphics/particles/*
-graphics/player/*
 graphics/weapons/*
 
 !graphics/tilemap/ground.png
@@ -25,3 +24,4 @@ graphics/weapons/*
 !graphics/monsters/scarab
 !graphics/monsters/book
 
+!graphics_samples/player_sprites
