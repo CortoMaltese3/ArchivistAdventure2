@@ -15,13 +15,14 @@ AUDIO_PATH = BASE_PATH / "audio"
 CODE_PATH = BASE_PATH / "code"
 GRAPHICS_PATH = BASE_PATH / "graphics"
 MAP_PATH = BASE_PATH / "map"
-TILEMAP_PATH = GRAPHICS_PATH / "tilemap"
+LEVEL_PATH = GRAPHICS_PATH / "levels"
 
 # Get secondary directories of the application
-PARTICLES_PATH = GRAPHICS_PATH / "particles"
-WEAPONS_PATH = GRAPHICS_PATH / "weapons"
-MONSTERS_PATH = GRAPHICS_PATH / "monsters"
 ICONS_PATH = GRAPHICS_PATH / "icons"
+MONSTERS_PATH = GRAPHICS_PATH / "monsters"
+PARTICLES_PATH = GRAPHICS_PATH / "particles"
+PLAYER_PATH = GRAPHICS_PATH / "player"
+WEAPONS_PATH = GRAPHICS_PATH / "weapons"
 
 # game setup
 WIDTH = 1280
@@ -86,7 +87,7 @@ magic_data = {
 
 # enemy
 monster_data = {
-    "bamboo": {
+    "scarab": {
         "health": 70,
         "exp": 120,
         "damage": 6,
@@ -97,34 +98,12 @@ monster_data = {
         "attack_radius": 50,
         "notice_radius": 300,
     },
-    "squid": {
-        "health": 100,
-        "exp": 100,
-        "damage": 20,
-        "attack_type": "slash",
-        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
-        "speed": 3,
-        "resistance": 3,
-        "attack_radius": 80,
-        "notice_radius": 360,
-    },
-    "spirit": {
-        "health": 100,
-        "exp": 110,
-        "damage": 8,
-        "attack_type": "thunder",
-        "attack_sound": AUDIO_PATH / "attack/fireball.wav",
-        "speed": 4,
-        "resistance": 3,
-        "attack_radius": 60,
-        "notice_radius": 350,
-    },
-    "scarab": {
+    "book": {
         "health": 70,
         "exp": 120,
         "damage": 6,
-        "attack_type": "leaf_attack",
-        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
+        "attack_type": "thunder",
+        "attack_sound": AUDIO_PATH / "attack" / "fireball.wav",
         "speed": 3,
         "resistance": 3,
         "attack_radius": 50,

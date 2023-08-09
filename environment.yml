@@ -2,6 +2,7 @@ name: archivist_adventure_2
 channels:
   - defaults
 dependencies:
+  - pip
   - python=3.8
   - pip:
       - pygame

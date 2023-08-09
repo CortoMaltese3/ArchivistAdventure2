@@ -3,29 +3,5 @@ __pycache__
 build
 dist
 
-# audio
-audio_samples
-audio/*
-!audio/desert.ogg
-
-# graphics
-graphics_samples
-
-graphics/tilemap/*
-graphics/font/*
-graphics/grass/*
-graphics/monsters/*
-graphics/objects/*
-graphics/particles/*
-graphics/player/*
-graphics/test/*
-graphics/weapons/*
-
-!graphics/tilemap/ground.png
-!graphics/particles/scarab
-!graphics/monsters/scarab
-
-# code
-code/enemy.py
-code/level.py
-code/player.py
+# Extra resources
+resources
