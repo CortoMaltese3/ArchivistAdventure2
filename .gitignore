@@ -5,19 +5,7 @@ dist
 
 # graphics
 
-graphics/tilemap/*
-graphics/grass/*
-graphics/monsters/*
-graphics/objects/*
-graphics/particles/*
-
-!graphics/tilemap/ground.png
-!graphics/particles/scarab
-!graphics/particles/book
-!graphics/monsters/scarab
-!graphics/monsters/book
-
-!graphics_samples/player_sprites
+graphics/particles
 
 # resources
 resources
