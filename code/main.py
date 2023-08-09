@@ -16,7 +16,7 @@ class Game:
         icon = pygame.image.load(ICONS_PATH / "icon.ico")
         pygame.display.set_icon(icon)
 
-        self.level = Level()
+        self.level = Level(stage=1)
 
         # sound
         main_sound = pygame.mixer.Sound(AUDIO_PATH / "desert.ogg")

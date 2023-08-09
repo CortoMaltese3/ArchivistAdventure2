@@ -16,10 +16,13 @@ from input_handler import InputHandler
 
 
 class Level:
-    def __init__(self):
+    def __init__(self, stage):
         # get the display surface
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
+
+        # get the stage
+        self.stage = stage
 
         # controller setup
         self.input_handler = InputHandler()
@@ -36,7 +39,7 @@ class Level:
         # sprite setup
         self.create_map()
 
-        # user interface 
+        # user interface
         self.ui = UI()
 
         # particles
@@ -45,10 +48,10 @@ class Level:
 
     def create_map(self):
         layouts = {
-            "boundary": import_csv_layout(MAP_PATH / "map_FloorBlocks.csv"),
-            "grass": import_csv_layout(MAP_PATH / "map_Grass.csv"),
-            "object": import_csv_layout(MAP_PATH / "map_Objects.csv"),
-            "entities": import_csv_layout(MAP_PATH / "map_Entities.csv"),
+            "boundary": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_FloorBlocks.csv"),
+            "grass": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_Grass.csv"),
+            "object": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_Objects.csv"),
+            "entities": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_Entities.csv"),
         }
         graphics = {
             "grass": import_folder(GRAPHICS_PATH / "Grass"),
@@ -102,7 +105,7 @@ class Level:
                                 elif col == "398":
                                     monster_name = "book"
                                 else:
-                                    monster_name = "book" # TODO: Change it
+                                    monster_name = "book"  # TODO: Change it
                                 Enemy(
                                     monster_name,
                                     (x, y),
