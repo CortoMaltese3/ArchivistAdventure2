@@ -14,8 +14,7 @@ else:
 AUDIO_PATH = BASE_PATH / "audio"
 CODE_PATH = BASE_PATH / "code"
 GRAPHICS_PATH = BASE_PATH / "graphics"
-MAP_PATH = BASE_PATH / "map"
-LEVEL_PATH = GRAPHICS_PATH / "levels"
+LEVEL_PATH = BASE_PATH / "levels"
 
 # Get secondary directories of the application
 ICONS_PATH = GRAPHICS_PATH / "icons"

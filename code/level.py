@@ -2,7 +2,7 @@ from random import choice, randint
 
 import pygame
 
-from settings import MAP_PATH, GRAPHICS_PATH, TILESIZE, LEVEL_PATH
+from settings import GRAPHICS_PATH, LEVEL_PATH, TILESIZE
 from tile import Tile
 from player import Player
 from debug import debug
@@ -28,7 +28,7 @@ class Level:
         self.input_handler = InputHandler()
 
         # sprite group setup
-        self.visible_sprites = YSortCameraGroup()
+        self.visible_sprites = YSortCameraGroup(self.stage)
         self.obstacle_sprites = pygame.sprite.Group()
 
         # attack sprites
@@ -48,10 +48,10 @@ class Level:
 
     def create_map(self):
         layouts = {
-            "boundary": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_FloorBlocks.csv"),
-            "grass": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_Grass.csv"),
-            "object": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_Objects.csv"),
-            "entities": import_csv_layout(MAP_PATH / f"{self.stage}" / "map_Entities.csv"),
+            "boundary": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_FloorBlocks.csv"),
+            "grass": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_Grass.csv"),
+            "object": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_Objects.csv"),
+            "entities": import_csv_layout(LEVEL_PATH / f"{self.stage}" / "map_Entities.csv"),
         }
         graphics = {
             "grass": import_folder(GRAPHICS_PATH / "Grass"),
@@ -181,7 +181,7 @@ class Level:
 
 
 class YSortCameraGroup(pygame.sprite.Group):
-    def __init__(self):
+    def __init__(self, stage):
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -189,8 +189,11 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
+        # Set stage
+        self.stage = stage
+
         # creating the floor
-        self.floor_surf = pygame.image.load(LEVEL_PATH / "0.png").convert()
+        self.floor_surf = pygame.image.load(LEVEL_PATH / f"{self.stage}" / "ground.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
