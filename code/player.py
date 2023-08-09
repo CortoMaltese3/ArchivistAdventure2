@@ -6,11 +6,14 @@ from entity import Entity
 
 
 class Player(Entity):
-    def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack, create_magic):
+    def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack, create_magic, input_handler):
         super().__init__(groups)
         self.image = pygame.image.load(PLAYER_PATH / "down_idle" / "idle_down.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET["player"])
+
+        # input setup
+        self.input_handler = input_handler
 
         # graphics setup
         self.import_player_assets()
@@ -56,7 +59,7 @@ class Player(Entity):
         }
         self.health = self.stats["health"] * 0.5
         self.energy = self.stats["energy"] * 0.8
-        self.exp = 5000
+        self.exp = 0
         self.speed = self.stats["speed"]
 
         # damage timer
@@ -89,37 +92,38 @@ class Player(Entity):
             self.animations[animation] = import_folder(full_path)
 
     def input(self):
+        actions = self.input_handler.get_input()
+
         if not self.attacking:
             keys = pygame.key.get_pressed()
 
             # movement input
-            if keys[pygame.K_UP]:
+            if actions["move_up"]:
                 self.direction.y = -1
                 self.status = "up"
-            elif keys[pygame.K_DOWN]:
+            elif actions["move_down"]:
                 self.direction.y = 1
                 self.status = "down"
             else:
                 self.direction.y = 0
-
-            if keys[pygame.K_RIGHT]:
+            if actions["move_right"]:
                 self.direction.x = 1
                 self.status = "right"
-            elif keys[pygame.K_LEFT]:
+            elif actions["move_left"]:
                 self.direction.x = -1
                 self.status = "left"
             else:
                 self.direction.x = 0
 
             # attack input
-            if keys[pygame.K_SPACE]:
+            if actions["attack"]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
                 self.weapon_attack_sound.play()
 
             # magic input
-            if keys[pygame.K_LCTRL]:
+            if actions["magic"]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 style = list(magic_data.keys())[self.magic_index]
@@ -129,7 +133,8 @@ class Player(Entity):
                 cost = list(magic_data.values())[self.magic_index]["cost"]
                 self.create_magic(style, strength, cost)
 
-            if keys[pygame.K_q] and self.can_switch_weapon:
+            # weapon switching
+            if actions["switch_weapon"] and self.can_switch_weapon:
                 self.can_switch_weapon = False
                 self.weapon_switch_time = pygame.time.get_ticks()
 
@@ -140,7 +145,8 @@ class Player(Entity):
 
                 self.weapon = list(weapon_data.keys())[self.weapon_index]
 
-            if keys[pygame.K_e] and self.can_switch_magic:
+            # magic switching
+            if actions["switch_magic"] and self.can_switch_magic:
                 self.can_switch_magic = False
                 self.magic_switch_time = pygame.time.get_ticks()
 

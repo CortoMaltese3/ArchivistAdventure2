@@ -12,6 +12,7 @@ from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
 from ui import UI
+from input_handler import InputHandler
 
 
 class Level:
@@ -19,6 +20,9 @@ class Level:
         # get the display surface
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
+
+        # controller setup
+        self.input_handler = InputHandler()
 
         # sprite group setup
         self.visible_sprites = YSortCameraGroup()
@@ -90,6 +94,7 @@ class Level:
                                     self.create_attack,
                                     self.destroy_attack,
                                     self.create_magic,
+                                    self.input_handler,
                                 )
                             else:
                                 if col == "390":
