@@ -27,7 +27,3 @@ graphics/weapons/*
 !graphics/monsters/scarab
 !graphics/monsters/book
 
-# code
-code/enemy.py
-code/level.py
-code/player.py
