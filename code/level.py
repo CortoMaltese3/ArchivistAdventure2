@@ -2,7 +2,7 @@ from random import choice, randint
 
 import pygame
 
-from settings import MAP_PATH, GRAPHICS_PATH, TILESIZE, TILEMAP_PATH
+from settings import MAP_PATH, GRAPHICS_PATH, TILESIZE, LEVEL_PATH
 from tile import Tile
 from player import Player
 from debug import debug
@@ -193,7 +193,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # creating the floor
-        self.floor_surf = pygame.image.load(TILEMAP_PATH / "ground.png").convert()
+        self.floor_surf = pygame.image.load(LEVEL_PATH / "0.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
