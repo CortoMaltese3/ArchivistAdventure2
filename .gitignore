@@ -17,7 +17,6 @@ graphics/monsters/*
 graphics/objects/*
 graphics/particles/*
 graphics/player/*
-graphics/test/*
 graphics/weapons/*
 
 !graphics/tilemap/ground.png

@@ -18,10 +18,11 @@ MAP_PATH = BASE_PATH / "map"
 TILEMAP_PATH = GRAPHICS_PATH / "tilemap"
 
 # Get secondary directories of the application
-PARTICLES_PATH = GRAPHICS_PATH / "particles"
-WEAPONS_PATH = GRAPHICS_PATH / "weapons"
-MONSTERS_PATH = GRAPHICS_PATH / "monsters"
 ICONS_PATH = GRAPHICS_PATH / "icons"
+MONSTERS_PATH = GRAPHICS_PATH / "monsters"
+PARTICLES_PATH = GRAPHICS_PATH / "particles"
+PLAYER_PATH = GRAPHICS_PATH / "player"
+WEAPONS_PATH = GRAPHICS_PATH / "weapons"
 
 # game setup
 WIDTH = 1280
