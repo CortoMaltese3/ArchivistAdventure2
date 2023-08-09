@@ -8,7 +8,7 @@ class MagicPlayer:
         self.animation_player = animation_player
         self.sounds = {
             "heal": pygame.mixer.Sound(AUDIO_PATH / "heal.wav"),
-            "flame": pygame.mixer.Sound(AUDIO_PATH / "Fire.wav"),
+            "flame": pygame.mixer.Sound(AUDIO_PATH / "fire.wav"),
         }
 
     def heal(self, player, strength, cost, groups):
