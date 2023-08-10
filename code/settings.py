@@ -19,6 +19,7 @@ LEVEL_PATH = BASE_PATH / "levels"
 # Get secondary directories of the application
 ICONS_PATH = GRAPHICS_PATH / "icons"
 MONSTERS_PATH = GRAPHICS_PATH / "monsters"
+NPC_PATH = GRAPHICS_PATH / "npc"
 PARTICLES_PATH = GRAPHICS_PATH / "particles"
 PLAYER_PATH = GRAPHICS_PATH / "player"
 WEAPONS_PATH = GRAPHICS_PATH / "weapons"
