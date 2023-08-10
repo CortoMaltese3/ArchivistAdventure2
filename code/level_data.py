@@ -10,7 +10,7 @@ def create_level(level_num, node_pos):
         'node_graphics': GRAPHICS_PATH  / "overworld" / str(level_num),
         'node_pos': node_pos,
         'unlock': level_num + 1,
-        "bg_music": AUDIO_PATH / f'{str(level_num)}.ogg'
+        "bg_music": AUDIO_PATH / "level_bg_music" / f'{str(level_num)}.ogg'
     }
 
 levels = {
