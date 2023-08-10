@@ -15,7 +15,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # game attributes
-        self.max_level = 2
+        self.max_level = 1
         self.current_level = 0
 
         # sound
