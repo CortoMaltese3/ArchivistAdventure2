@@ -2,6 +2,3 @@ __pycache__
 .vscode
 build
 dist
-
-# Extra resources
-resources
