@@ -1,4 +1,6 @@
 import pygame
+
+from input_handler import InputHandler
 from level_data import levels
 from support import import_folder
 from settings import GRAPHICS_PATH
@@ -57,6 +59,9 @@ class Overworld:
         self.current_level = start_level
         self.create_level = create_level
 
+        # controller setup
+        self.input_handler = InputHandler()
+
         # movement logic
         self.moving = False
         self.move_direction = pygame.math.Vector2(0, 0)
@@ -100,18 +105,18 @@ class Overworld:
         self.icon.add(icon_sprite)
 
     def input(self):
-        keys = pygame.key.get_pressed()
+        actions = self.input_handler.get_input()
 
         if not self.moving and self.allow_input:
-            if keys[pygame.K_RIGHT] and self.current_level < self.max_level:
+            if actions["move_right"] and self.current_level < self.max_level:
                 self.move_direction = self.get_movement_data("next")
                 self.current_level += 1
                 self.moving = True
-            elif keys[pygame.K_LEFT] and self.current_level > 0:
+            elif actions["move_left"] and self.current_level > 0:
                 self.move_direction = self.get_movement_data("previous")
                 self.current_level -= 1
                 self.moving = True
-            elif keys[pygame.K_SPACE]:
+            elif actions["select"]:
                 self.create_level(self.current_level)
 
     def get_movement_data(self, target):

@@ -1,5 +1,6 @@
 import pygame
 
+
 class InputHandler:
     def __init__(self):
         pygame.joystick.init()
@@ -17,6 +18,7 @@ class InputHandler:
             "magic": False,
             "switch_weapon": False,
             "switch_magic": False,
+            "select": False,
         }
 
         keys = pygame.key.get_pressed()
@@ -25,6 +27,7 @@ class InputHandler:
         actions["move_left"] = keys[pygame.K_LEFT]
         actions["move_right"] = keys[pygame.K_RIGHT]
         actions["attack"] = keys[pygame.K_z]
+        actions["select"] = keys[pygame.K_z]
         actions["magic"] = keys[pygame.K_x]
         actions["switch_weapon"] = keys[pygame.K_a]
         actions["switch_magic"] = keys[pygame.K_s]
@@ -35,6 +38,7 @@ class InputHandler:
             actions["move_left"] = actions["move_left"] or self.joystick.get_axis(0) < 0
             actions["move_right"] = actions["move_right"] or self.joystick.get_axis(0) > 0
             actions["attack"] = actions["attack"] or self.joystick.get_button(0)
+            actions["select"] = actions["select"] or self.joystick.get_button(0)
             actions["magic"] = actions["magic"] or self.joystick.get_button(1)
             actions["switch_weapon"] = actions["switch_weapon"] or self.joystick.get_button(2)
             actions["switch_magic"] = actions["switch_magic"] or self.joystick.get_button(3)

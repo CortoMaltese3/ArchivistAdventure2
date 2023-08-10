@@ -2,18 +2,17 @@ from random import choice, randint
 
 import pygame
 
-from settings import GRAPHICS_PATH, LEVEL_PATH, TILESIZE
-from tile import Tile
-from player import Player
-from debug import debug
-from support import import_csv_layout, import_folder
-from weapon import Weapon
 from enemy import Enemy
-from particles import AnimationPlayer
-from magic import MagicPlayer
-from ui import UI
 from input_handler import InputHandler
 from level_data import levels
+from magic import MagicPlayer
+from particles import AnimationPlayer
+from player import Player
+from settings import GRAPHICS_PATH, TILESIZE
+from support import import_csv_layout, import_folder
+from tile import Tile
+from ui import UI
+from weapon import Weapon
 
 
 class Level:
@@ -53,10 +52,10 @@ class Level:
     def create_map(self):
         # use the level data
         layouts = {
-            "boundary": import_csv_layout(self.level_data['constraints']),
-            "grass": import_csv_layout(self.level_data['grass']),
-            "object": import_csv_layout(self.level_data['objects']),
-            "entities": import_csv_layout(self.level_data['entities']),
+            "boundary": import_csv_layout(self.level_data["constraints"]),
+            "grass": import_csv_layout(self.level_data["grass"]),
+            "object": import_csv_layout(self.level_data["objects"]),
+            "entities": import_csv_layout(self.level_data["entities"]),
         }
         graphics = {
             "grass": import_folder(GRAPHICS_PATH / "grass"),
@@ -198,7 +197,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.stage = stage
 
         # use the ground image from level data
-        self.floor_surf = pygame.image.load(levels[stage]['ground']).convert()
+        self.floor_surf = pygame.image.load(levels[stage]["ground"]).convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):

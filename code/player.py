@@ -6,7 +6,16 @@ from entity import Entity
 
 
 class Player(Entity):
-    def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack, create_magic, input_handler):
+    def __init__(
+        self,
+        pos,
+        groups,
+        obstacle_sprites,
+        create_attack,
+        destroy_attack,
+        create_magic,
+        input_handler,
+    ):
         super().__init__(groups)
         self.image = pygame.image.load(PLAYER_PATH / "down_idle" / "idle_down.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
@@ -95,8 +104,6 @@ class Player(Entity):
         actions = self.input_handler.get_input()
 
         if not self.attacking:
-            keys = pygame.key.get_pressed()
-
             # movement input
             if actions["move_up"]:
                 self.direction.y = -1
