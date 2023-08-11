@@ -7,6 +7,7 @@ from input_handler import InputHandler
 from level_data import levels
 from magic import MagicPlayer
 from npc import NPC
+from npc_data import npcs
 from particles import AnimationPlayer
 from player import Player
 from settings import GRAPHICS_PATH, TILESIZE
@@ -104,12 +105,9 @@ class Level:
                                     self.create_magic,
                                     self.input_handler,
                                 )
-                            # elif col == "399":
-                            #     self.npc = NPC(
-                            #         (x,y),
-                            #         [self.visible_sprites],
-
-                            #     )
+                            elif int(col) in npcs:  # Check if NPC index is in the npcs dictionary
+                                npc_data = npcs[int(col)]
+                                NPC((x, y), [self.visible_sprites], npc_data["sprite"])
                             else:
                                 if col == "397":
                                     monster_name = "scarab"
