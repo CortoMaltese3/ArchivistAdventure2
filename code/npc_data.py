@@ -1,7 +1,7 @@
 from settings import NPC_PATH
 
 NPC_NAMES = {
-    400: "koula",
+    400: "giannis",
     401: "tina",
 }
 

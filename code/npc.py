@@ -1,5 +1,4 @@
 from entity import Entity
-from npc_data import npcs
 from settings import HITBOX_OFFSET, NPC_PATH
 from support import import_folder
 

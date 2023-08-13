@@ -111,7 +111,7 @@ class Level:
                                 NPC(
                                     npc_data["name"],
                                     (x, y),
-                                    [self.visible_sprites],
+                                    [self.visible_sprites, self.obstacle_sprites],
                                     self.obstacle_sprites,
                                 )
                             else:
