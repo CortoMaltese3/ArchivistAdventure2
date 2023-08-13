@@ -105,9 +105,14 @@ class Level:
                                     self.create_magic,
                                     self.input_handler,
                                 )
-                            elif int(col) in npcs:  # Check if NPC index is in the npcs dictionary
+                            elif col in ["400", "401"]:
                                 npc_data = npcs[int(col)]
-                                NPC((x, y), [self.visible_sprites], npc_data["sprite"])
+                                NPC(
+                                    npcs[int(col)],
+                                    (x, y),
+                                    [self.visible_sprites],
+                                    self.obstacle_sprites,
+                                )
                             else:
                                 if col == "397":
                                     monster_name = "scarab"

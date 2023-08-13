@@ -1,13 +1,13 @@
 from settings import NPC_PATH
 
 
-def create_npc(num, name):
+def create_npc(id, name):
     # Assuming you want to use the "down" sprite for the NPC
-    sprite_path = NPC_PATH / str(num) / "down" / "down_0.png"
-    return {"name": name, "sprite": sprite_path, "speech": []}
+    sprite_path = NPC_PATH / name / "down" / "down_0.png"
+    return {"id": id, "name": name, "sprite": sprite_path, "speech": [], "notice_radius": 50}
 
 
 npcs = {
-    400: create_npc(400, "Koula"),
-    401: create_npc(401, "Tina"),
+    400: create_npc(id=400, name="Koula"),
+    401: create_npc(id=401, name="Tina"),
 }
