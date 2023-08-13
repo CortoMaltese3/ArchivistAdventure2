@@ -1,5 +1,3 @@
-import pygame
-
 from entity import Entity
 from npc_data import npcs
 from settings import HITBOX_OFFSET, NPC_PATH
@@ -11,7 +9,6 @@ class NPC(Entity):
         # General setup
         super().__init__(groups)
         self.sprite_type = "npc"
-
         # graphics setup
         self.import_graphics(name)
         self.status = "down"
@@ -24,17 +21,18 @@ class NPC(Entity):
 
         # info
         self.name = name
-        npc_info = npcs[self.name]
-        self.notice_radius = npcs["notice_radius"]
 
     def import_graphics(self, name):
         self.animations = {
-            "idle": [],
-            "move": [],
+            "up": [],
+            "down": [],
+            "left": [],
+            "right": [],
         }
-        main_path = NPC_PATH / f"{name}"
+        npc_path = NPC_PATH / f"{name}"
         for animation in self.animations.keys():
-            self.animations[animation] = import_folder(main_path / animation)
+            full_path = npc_path / animation
+            self.animations[animation] = import_folder(full_path)
 
     def update(self):
         pass  # No update logic needed for a static NPC

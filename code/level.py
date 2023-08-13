@@ -107,8 +107,9 @@ class Level:
                                 )
                             elif col in ["400", "401"]:
                                 npc_data = npcs[int(col)]
+                                print(f"npc_data: {npc_data}")
                                 NPC(
-                                    npcs[int(col)],
+                                    npc_data["name"],
                                     (x, y),
                                     [self.visible_sprites],
                                     self.obstacle_sprites,
