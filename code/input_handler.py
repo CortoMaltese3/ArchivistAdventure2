@@ -8,7 +8,8 @@ class InputHandler:
         # menu options
         self.menu_option = 0
         self.menu_timer = 0
-        
+        self.pause_timer = 0
+
         if self.joystick:
             self.joystick.init()
 
@@ -49,12 +50,17 @@ class InputHandler:
         return actions
 
     def check_pause(self):
-        keys = pygame.key.get_pressed()
-        is_paused = keys[pygame.K_ESCAPE]
-        if self.joystick:
-            is_paused = is_paused or self.joystick.get_button(4) # TODO: Test it
-        return is_paused
+        is_paused = False
+        current_time = pygame.time.get_ticks()
 
+        keys = pygame.key.get_pressed()
+        joystick_pause = self.joystick.get_button(4) if self.joystick else False  # TODO: Test it
+
+        if (keys[pygame.K_ESCAPE] or joystick_pause) and current_time - self.pause_timer > 200:
+            is_paused = True
+            self.pause_timer = current_time
+
+        return is_paused
 
     def handle_pause_input(self):
         actions = {
