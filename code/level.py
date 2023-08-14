@@ -255,14 +255,17 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
 
-        # drawing the floor
+        # draw the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
         self.display_surface.blit(self.floor_surf, floor_offset_pos)
 
-        # for sprite in self.sprites():
+        # draw sprites and speech bubbles:
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
+            if hasattr(sprite, "sprite_type") and sprite.sprite_type == "npc":
+                bubble_pos = offset_pos - pygame.Vector2(10, sprite.speech_bubble.image.get_height()) # or any other adjustments you need
+                sprite.speech_bubble.draw(self.display_surface, bubble_pos)
 
     def update_enemy(self, player):
         enemy_sprites = [

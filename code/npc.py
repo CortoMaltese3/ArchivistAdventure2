@@ -3,6 +3,7 @@ import pygame
 from entity import Entity
 from npc_data import npcs, NPC_NAMES
 from settings import HITBOX_OFFSET, NPC_PATH
+from speech_bubble import SpeechBubble
 from support import import_folder
 
 
@@ -15,6 +16,9 @@ class NPC(Entity):
         self.import_graphics(name)
         self.status = "down"
         self.image = self.animations[self.status][self.frame_index]
+
+        # speech
+        self.speech_bubble = SpeechBubble("Hello, Adventurer!", (pos[0], pos[1] - 30))  # Adjust the position as needed
 
         # movement
         self.rect = self.image.get_rect(topleft=pos)
