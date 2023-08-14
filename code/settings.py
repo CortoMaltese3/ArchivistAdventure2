@@ -51,11 +51,6 @@ ENERGY_COLOR = "blue"
 UI_BORDER_COLOR_ACTIVE = "gold"
 BLACK_COLOR = "black"
 
-# upgrade menu
-TEXT_COLOR_SELECTED = "#111111"
-BAR_COLOR = "#EEEEEE"
-BAR_COLOR_SELECTED = "#111111"
-UPGRADE_BG_COLOR_SELECTED = "#EEEEEE"
 
 # weapons
 weapon_data = {
