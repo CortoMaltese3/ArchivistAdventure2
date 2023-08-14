@@ -18,12 +18,14 @@ class Companion(Entity):
         self.image = self.animations[self.status][self.frame_index]
 
         self.follow_distance = 50  # distance at which the companion will follow the player
-        self.close_distance = 10
+        self.close_distance = 20
 
         # movement
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET["companion"])
         self.obstacle_sprites = obstacle_sprites
+        self.animation_speed = 250
+        self.animation_timer = 0
 
         # info
         companion_id = [
@@ -51,12 +53,6 @@ class Companion(Entity):
             full_path = COMPANION_PATH / name / animation
             self.animations[animation] = import_folder(full_path)
 
-    def get_player_distance_direction(self, player):
-        pass
-
-    def get_status(self, player):
-        pass
-
     def handle_speech(self, player):
         distance, _ = self.get_player_distance_direction(player)
         if distance <= self.notice_radius:
@@ -83,11 +79,10 @@ class Companion(Entity):
 
         # If the companion is far from the player, make it follow
         if distance <= self.follow_distance:
-            if not "idle" in self.status and not "attack" in self.status:
+            if not "idle" in self.status:
                 self.status = self.status + "_idle"
-
         else:
-            move_speed = 2  # adjust the speed as needed
+            move_speed = 3  # adjust the speed as needed
             move = direction * move_speed
 
             # Check if the next position will collide with obstacles or get too close to the player
@@ -101,14 +96,24 @@ class Companion(Entity):
             # Determine the facing direction
             if abs(direction.x) > abs(direction.y):
                 if direction.x > 0:
-                    self.status = "right"  # change from self.direction to self.status
+                    self.status = "right"
                 else:
-                    self.status = "left"  # change from self.direction to self.status
+                    self.status = "left"
             else:
                 if direction.y > 0:
-                    self.status = "down"  # change from self.direction to self.status
+                    self.status = "down"
                 else:
-                    self.status = "up"  # change from self.direction to self.status
+                    self.status = "up"
+
+        # Handle the animation frames using animation_speed
+        elapsed_time = self.clock.tick(FPS)
+        self.animation_timer += elapsed_time
+        if self.animation_timer > self.animation_speed:
+            self.frame_index += 1
+            self.animation_timer = 0
+
+        if self.frame_index >= len(self.animations[self.status]):
+            self.frame_index = 0
 
         self.image = self.animations[self.status][self.frame_index]
 
