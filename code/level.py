@@ -107,11 +107,10 @@ class Level:
                                 )
                             elif col in ["400", "401"]:
                                 npc_data = npcs[int(col)]
-                                print(f"npc_data: {npc_data}")
                                 NPC(
                                     npc_data["name"],
                                     (x, y),
-                                    [self.visible_sprites],
+                                    [self.visible_sprites, self.obstacle_sprites],
                                     self.obstacle_sprites,
                                 )
                             else:
@@ -191,7 +190,8 @@ class Level:
             self.upgrade.display()
         else:
             self.visible_sprites.update()
-            self.visible_sprites.enemy_update(self.player)
+            self.visible_sprites.update_enemy(self.player)
+            # self.visible_sprites.update_npc(self.player)
             self.player_attack_logic()
 
 
@@ -225,11 +225,20 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
 
-    def enemy_update(self, player):
+    def update_enemy(self, player):
         enemy_sprites = [
             sprite
             for sprite in self.sprites()
             if hasattr(sprite, "sprite_type") and sprite.sprite_type == "enemy"
         ]
         for enemy in enemy_sprites:
-            enemy.enemy_update(player)
+            enemy.update_enemy(player)
+
+    def update_npc(self, player):
+        npc_sprites = [
+            sprite
+            for sprite in self.visible_sprites.sprites()
+            if hasattr(sprite, "sprite_type") and sprite.sprite_type == "npc"
+        ]
+        for npc in npc_sprites:
+            npc.update_npc(player)
