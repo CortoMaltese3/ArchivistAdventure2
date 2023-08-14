@@ -2,7 +2,7 @@ import pygame
 
 from entity import Entity
 from npc_data import npcs, NPC_NAMES
-from settings import HITBOX_OFFSET, NPC_PATH
+from settings import FPS, HITBOX_OFFSET, NPC_PATH
 from speech_bubble import SpeechBubble
 from support import import_folder
 
@@ -30,6 +30,7 @@ class NPC(Entity):
 
         # speech
         self.speech = npc_info["speech"]
+        self.clock = pygame.time.Clock()
 
     def import_graphics(self, name):
         self.animations = {
@@ -81,6 +82,7 @@ class NPC(Entity):
         if distance <= self.notice_radius:
             if not hasattr(self, "speech_bubble"):
                 self.speech_bubble = SpeechBubble(self.speech[0], (self.rect.x, self.rect.y - 30))
+            self.speech_bubble.update(self.clock.tick(FPS))  # Update the speech bubble
         elif hasattr(self, "speech_bubble"):
             delattr(self, "speech_bubble")  # Remove the speech bubble if player is out of range
 
