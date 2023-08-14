@@ -30,7 +30,6 @@ class NPC(Entity):
 
         # speech
         self.speech = npc_info["speech"]
-        self.speech_bubble = SpeechBubble(self.speech[0], (pos[0], pos[1] - 30))  # Adjust the position as needed
 
     def import_graphics(self, name):
         self.animations = {
@@ -77,8 +76,17 @@ class NPC(Entity):
 
         self.image = self.animations[self.status][self.frame_index]
 
+    def handle_speech(self, player):
+        distance, _ = self.get_player_distance_direction(player)
+        if distance <= self.notice_radius:
+            if not hasattr(self, "speech_bubble"):
+                self.speech_bubble = SpeechBubble(self.speech[0], (self.rect.x, self.rect.y - 30))
+        elif hasattr(self, "speech_bubble"):
+            delattr(self, "speech_bubble")  # Remove the speech bubble if player is out of range
+
     def update_npc(self, player):
         self.get_status(player)
+        self.handle_speech(player)
 
     def update(self):
         pass
