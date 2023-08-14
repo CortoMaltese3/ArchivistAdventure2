@@ -191,7 +191,7 @@ class Level:
         else:
             self.visible_sprites.update()
             self.visible_sprites.update_enemy(self.player)
-            # self.visible_sprites.update_npc(self.player)
+            self.visible_sprites.update_npc(self.player)
             self.player_attack_logic()
 
 
@@ -237,7 +237,7 @@ class YSortCameraGroup(pygame.sprite.Group):
     def update_npc(self, player):
         npc_sprites = [
             sprite
-            for sprite in self.visible_sprites.sprites()
+            for sprite in self.sprites()
             if hasattr(sprite, "sprite_type") and sprite.sprite_type == "npc"
         ]
         for npc in npc_sprites:
