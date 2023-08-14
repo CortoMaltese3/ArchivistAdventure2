@@ -6,10 +6,10 @@ COMPANION_SPEECHES = {
     500: ["Arf arf!"],
 }
 
-def create_npc(id):
+def create_companion(id):
     name = COMPANION_NAMES[id]
-    sprite_path = COMPANION_PATH / name / "down" / "down_0.png"
+    sprite_path = COMPANION_PATH / name / "idle" / "down" / "down_0.png"
     speech = COMPANION_SPEECHES.get(id, ["..."]) # default speech if none found
     return {"id": id, "name": name, "sprite": sprite_path, "speech": speech}
 
-npcs = {id: create_npc(id) for id in COMPANION_NAMES.keys()}
+companions = {id: create_companion(id) for id in COMPANION_NAMES.keys()}
