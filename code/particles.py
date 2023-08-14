@@ -14,12 +14,31 @@ class AnimationPlayer:
             "aura": import_folder(PARTICLES_PATH / "aura"),
             "heal": import_folder(PARTICLES_PATH / "heal" / "frames"),
             # attacks
+            "claw": import_folder(PARTICLES_PATH / "claw"),
             "slash": import_folder(PARTICLES_PATH / "slash"),
+            "sparkle": import_folder(PARTICLES_PATH / "sparkle"),
+            "leaf_attack": import_folder(PARTICLES_PATH / "leaf_attack"),
             "thunder": import_folder(PARTICLES_PATH / "thunder"),
             # monster deaths
+            "squid": import_folder(PARTICLES_PATH / "smoke_orange"),
             "spirit": import_folder(PARTICLES_PATH / "nova"),
             "scarab": import_folder(PARTICLES_PATH / "scarab"),
             "book": import_folder(PARTICLES_PATH / "book"),
+            # leafs
+            "leaf": (
+                import_folder(PARTICLES_PATH / "leaf1"),
+                import_folder(PARTICLES_PATH / "leaf2"),
+                import_folder(PARTICLES_PATH / "leaf3"),
+                import_folder(PARTICLES_PATH / "leaf4"),
+                import_folder(PARTICLES_PATH / "leaf5"),
+                import_folder(PARTICLES_PATH / "leaf6"),
+                self.reflect_images(import_folder(PARTICLES_PATH / "leaf1")),
+                self.reflect_images(import_folder(PARTICLES_PATH / "leaf2")),
+                self.reflect_images(import_folder(PARTICLES_PATH / "leaf3")),
+                self.reflect_images(import_folder(PARTICLES_PATH / "leaf4")),
+                self.reflect_images(import_folder(PARTICLES_PATH / "leaf5")),
+                self.reflect_images(import_folder(PARTICLES_PATH / "leaf6")),
+            ),
         }
 
     def reflect_images(self, frames):

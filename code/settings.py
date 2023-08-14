@@ -14,22 +14,22 @@ else:
 AUDIO_PATH = BASE_PATH / "audio"
 CODE_PATH = BASE_PATH / "code"
 GRAPHICS_PATH = BASE_PATH / "graphics"
-MAP_PATH = BASE_PATH / "map"
-LEVEL_PATH = GRAPHICS_PATH / "levels"
+LEVEL_PATH = BASE_PATH / "levels"
 
 # Get secondary directories of the application
 ICONS_PATH = GRAPHICS_PATH / "icons"
 MONSTERS_PATH = GRAPHICS_PATH / "monsters"
+NPC_PATH = GRAPHICS_PATH / "npc"
 PARTICLES_PATH = GRAPHICS_PATH / "particles"
 PLAYER_PATH = GRAPHICS_PATH / "player"
 WEAPONS_PATH = GRAPHICS_PATH / "weapons"
 
 # game setup
 WIDTH = 1280
-HEIGTH = 720
+HEIGHT = 720
 FPS = 60
 TILESIZE = 64
-HITBOX_OFFSET = {"player": -26, "object": -40, "grass": -10, "invisible": 0}
+HITBOX_OFFSET = {"player": -26, "object": -40, "grass": -10, "invisible": 0, "npc": -26}
 
 # ui
 BAR_HEIGHT = 20
@@ -91,7 +91,7 @@ monster_data = {
         "health": 70,
         "exp": 120,
         "damage": 6,
-        "attack_type": "leaf_attack",
+        "attack_type": "slash",
         "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
         "speed": 3,
         "resistance": 3,

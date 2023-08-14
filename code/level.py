@@ -1,31 +1,41 @@
 from random import choice, randint
+import sys
 
 import pygame
 
-from settings import MAP_PATH, GRAPHICS_PATH, TILESIZE, LEVEL_PATH
-from tile import Tile
-from player import Player
-from debug import debug
-from support import import_csv_layout, import_folder
-from weapon import Weapon
 from enemy import Enemy
-from particles import AnimationPlayer
-from magic import MagicPlayer
-from ui import UI
 from input_handler import InputHandler
+from level_data import levels
+from magic import MagicPlayer
+from npc import NPC
+from npc_data import npcs
+from particles import AnimationPlayer
+from player import Player
+from settings import GRAPHICS_PATH, HEIGHT, TILESIZE, WIDTH
+from support import import_csv_layout, import_folder
+from tile import Tile
+from ui import UI
+from weapon import Weapon
 
 
 class Level:
-    def __init__(self):
+    def __init__(self, stage):
         # get the display surface
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
+        self.finished = False
+
+        # get the stage
+        self.stage = stage
+
+        # get the level data for the current stage
+        self.level_data = levels[stage]
 
         # controller setup
         self.input_handler = InputHandler()
 
         # sprite group setup
-        self.visible_sprites = YSortCameraGroup()
+        self.visible_sprites = YSortCameraGroup(self.stage)
         self.obstacle_sprites = pygame.sprite.Group()
 
         # attack sprites
@@ -36,7 +46,7 @@ class Level:
         # sprite setup
         self.create_map()
 
-        # user interface 
+        # user interface
         self.ui = UI()
 
         # particles
@@ -44,14 +54,15 @@ class Level:
         self.magic_player = MagicPlayer(self.animation_player)
 
     def create_map(self):
+        # use the level data
         layouts = {
-            "boundary": import_csv_layout(MAP_PATH / "map_FloorBlocks.csv"),
-            "grass": import_csv_layout(MAP_PATH / "map_Grass.csv"),
-            "object": import_csv_layout(MAP_PATH / "map_Objects.csv"),
-            "entities": import_csv_layout(MAP_PATH / "map_Entities.csv"),
+            "boundary": import_csv_layout(self.level_data["constraints"]),
+            "grass": import_csv_layout(self.level_data["grass"]),
+            "object": import_csv_layout(self.level_data["objects"]),
+            "entities": import_csv_layout(self.level_data["entities"]),
         }
         graphics = {
-            "grass": import_folder(GRAPHICS_PATH / "Grass"),
+            "grass": import_folder(GRAPHICS_PATH / "grass"),
             "objects": import_folder(GRAPHICS_PATH / "objects"),
         }
 
@@ -96,13 +107,21 @@ class Level:
                                     self.create_magic,
                                     self.input_handler,
                                 )
+                            elif col in ["400", "401"]:
+                                npc_data = npcs[int(col)]
+                                NPC(
+                                    npc_data["name"],
+                                    (x, y),
+                                    [self.visible_sprites, self.obstacle_sprites],
+                                    self.obstacle_sprites,
+                                )
                             else:
                                 if col == "397":
                                     monster_name = "scarab"
                                 elif col == "398":
                                     monster_name = "book"
                                 else:
-                                    monster_name = "book" # TODO: Change it
+                                    monster_name = "book"  # TODO: Change it
                                 Enemy(
                                     monster_name,
                                     (x, y),
@@ -165,20 +184,58 @@ class Level:
     def toggle_menu(self):
         self.game_paused = not self.game_paused
 
+    def draw_pause_menu(self):
+        font = pygame.font.Font(None, 36)
+        options = ["Continue", "Main Menu", "Quit"]
+        for index, option in enumerate(options):
+            color = (255, 255, 255) if index != self.input_handler.menu_option else (255, 0, 0)
+            text = font.render(option, True, color)
+            self.display_surface.blit(
+                text,
+                (
+                    WIDTH // 2 - text.get_width() // 2,
+                    HEIGHT // 2 - text.get_height() // 2 + index * 40,
+                ),
+            )
+
+    def handle_pause_menu(self):
+        actions = self.input_handler.handle_pause_input()
+        if actions["next_option"]:
+            self.input_handler.menu_option = (self.input_handler.menu_option + 1) % 3
+        elif actions["previous_option"]:
+            self.input_handler.menu_option = (self.input_handler.menu_option - 1) % 3
+        elif actions["select_option"]:
+            # Continue game
+            if self.input_handler.menu_option == 0:
+                self.toggle_menu()
+            # Switch back to overworld view
+            elif self.input_handler.menu_option == 1:
+                self.game_paused = False
+                self.finished = True
+            # Quit game
+            elif self.input_handler.menu_option == 2:
+                pygame.quit()
+                sys.exit()
+
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.ui.display(self.player)
 
+        if self.input_handler.check_pause():
+            self.toggle_menu()
+
         if self.game_paused:
-            self.upgrade.display()
+            self.draw_pause_menu()
+            self.handle_pause_menu()
         else:
             self.visible_sprites.update()
-            self.visible_sprites.enemy_update(self.player)
+            self.visible_sprites.update_enemy(self.player)
+            self.visible_sprites.update_npc(self.player)
             self.player_attack_logic()
 
 
 class YSortCameraGroup(pygame.sprite.Group):
-    def __init__(self):
+    def __init__(self, stage):
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -186,8 +243,11 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
-        # creating the floor
-        self.floor_surf = pygame.image.load(LEVEL_PATH / "0.png").convert()
+        # Set stage
+        self.stage = stage
+
+        # use the ground image from level data
+        self.floor_surf = pygame.image.load(levels[stage]["ground"]).convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
@@ -204,11 +264,20 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
 
-    def enemy_update(self, player):
+    def update_enemy(self, player):
         enemy_sprites = [
             sprite
             for sprite in self.sprites()
             if hasattr(sprite, "sprite_type") and sprite.sprite_type == "enemy"
         ]
         for enemy in enemy_sprites:
-            enemy.enemy_update(player)
+            enemy.update_enemy(player)
+
+    def update_npc(self, player):
+        npc_sprites = [
+            sprite
+            for sprite in self.sprites()
+            if hasattr(sprite, "sprite_type") and sprite.sprite_type == "npc"
+        ]
+        for npc in npc_sprites:
+            npc.update_npc(player)
