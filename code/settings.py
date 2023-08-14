@@ -17,6 +17,7 @@ GRAPHICS_PATH = BASE_PATH / "graphics"
 LEVEL_PATH = BASE_PATH / "levels"
 
 # Get secondary directories of the application
+COMPANION_PATH = GRAPHICS_PATH / "companions"
 ICONS_PATH = GRAPHICS_PATH / "icons"
 MONSTERS_PATH = GRAPHICS_PATH / "monsters"
 NPC_PATH = GRAPHICS_PATH / "npc"
