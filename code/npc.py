@@ -17,9 +17,6 @@ class NPC(Entity):
         self.status = "down"
         self.image = self.animations[self.status][self.frame_index]
 
-        # speech
-        self.speech_bubble = SpeechBubble("Hello, Adventurer!", (pos[0], pos[1] - 30))  # Adjust the position as needed
-
         # movement
         self.rect = self.image.get_rect(topleft=pos)
         self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET["npc"])
@@ -30,6 +27,10 @@ class NPC(Entity):
         npc_info = npcs[npc_id]
         self.name = name
         self.notice_radius = npc_info["notice_radius"]
+
+        # speech
+        self.speech = npc_info["speech"]
+        self.speech_bubble = SpeechBubble(self.speech[0], (pos[0], pos[1] - 30))  # Adjust the position as needed
 
     def import_graphics(self, name):
         self.animations = {

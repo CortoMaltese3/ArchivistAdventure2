@@ -53,6 +53,7 @@ BLACK_COLOR = "black"
 LINE_SPACING = 5
 UI_FONT = GRAPHICS_PATH / "font" / "joystix.ttf"
 UI_FONT_SIZE = 18
+UI_FONT_WIDTH = 15
 
 # weapons
 weapon_data = {
