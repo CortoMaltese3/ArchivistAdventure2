@@ -5,6 +5,10 @@ class InputHandler:
     def __init__(self):
         pygame.joystick.init()
         self.joystick = pygame.joystick.Joystick(0) if pygame.joystick.get_count() > 0 else None
+        # menu options
+        self.menu_option = 0
+        self.menu_timer = 0
+        
         if self.joystick:
             self.joystick.init()
 
@@ -42,4 +46,34 @@ class InputHandler:
             actions["magic"] = actions["magic"] or self.joystick.get_button(1)
             actions["switch_weapon"] = actions["switch_weapon"] or self.joystick.get_button(2)
             actions["switch_magic"] = actions["switch_magic"] or self.joystick.get_button(3)
+        return actions
+
+    def check_pause(self):
+        keys = pygame.key.get_pressed()
+        is_paused = keys[pygame.K_ESCAPE]
+        if self.joystick:
+            is_paused = is_paused or self.joystick.get_button(4) # TODO: Test it
+        return is_paused
+
+
+    def handle_pause_input(self):
+        actions = {
+            "select_option": False,
+            "next_option": False,
+            "previous_option": False,
+        }
+
+        keys = pygame.key.get_pressed()
+        actions["select_option"] = keys[pygame.K_RETURN]
+
+        # Adding delay for up and down keys
+        current_time = pygame.time.get_ticks()
+        if current_time - self.menu_timer > 200:  # 200ms delay
+            if keys[pygame.K_DOWN] or (self.joystick and self.joystick.get_axis(1) > 0):
+                actions["next_option"] = True
+                self.menu_timer = current_time
+            if keys[pygame.K_UP] or (self.joystick and self.joystick.get_axis(1) < 0):
+                actions["previous_option"] = True
+                self.menu_timer = current_time
+
         return actions

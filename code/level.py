@@ -1,4 +1,5 @@
 from random import choice, randint
+import sys
 
 import pygame
 
@@ -10,7 +11,7 @@ from npc import NPC
 from npc_data import npcs
 from particles import AnimationPlayer
 from player import Player
-from settings import GRAPHICS_PATH, TILESIZE
+from settings import GRAPHICS_PATH, HEIGHT, TILESIZE, WIDTH
 from support import import_csv_layout, import_folder
 from tile import Tile
 from ui import UI
@@ -182,12 +183,46 @@ class Level:
     def toggle_menu(self):
         self.game_paused = not self.game_paused
 
+    def draw_pause_menu(self):
+        font = pygame.font.Font(None, 36)
+        options = ["Continue", "Main Menu", "Quit"]
+        for index, option in enumerate(options):
+            color = (255, 255, 255) if index != self.input_handler.menu_option else (255, 0, 0)
+            text = font.render(option, True, color)
+            self.display_surface.blit(
+                text,
+                (
+                    WIDTH // 2 - text.get_width() // 2,
+                    HEIGHT // 2 - text.get_height() // 2 + index * 40,
+                ),
+            )
+
+    def handle_pause_menu(self):
+        actions = self.input_handler.handle_pause_input()
+        if actions["next_option"]:
+            self.input_handler.menu_option = (self.input_handler.menu_option + 1) % 3
+        elif actions["previous_option"]:
+            self.input_handler.menu_option = (self.input_handler.menu_option - 1) % 3
+        elif actions["select_option"]:
+            if self.input_handler.menu_option == 0:
+                self.toggle_menu()
+            elif self.input_handler.menu_option == 1:
+                self.game_paused = False
+                # Switch back to overworld view here
+            elif self.input_handler.menu_option == 2:
+                pygame.quit()
+                sys.exit()
+
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.ui.display(self.player)
 
+        if self.input_handler.check_pause():
+            self.toggle_menu()
+
         if self.game_paused:
-            self.upgrade.display()
+            self.draw_pause_menu()
+            self.handle_pause_menu()
         else:
             self.visible_sprites.update()
             self.visible_sprites.update_enemy(self.player)
