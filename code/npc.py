@@ -66,7 +66,11 @@ class NPC(Entity):
                     self.status = "down"
                 else:
                     self.status = "up"
-            self.image = self.animations[self.status][self.frame_index]
+        else:
+            # Default to facing downwards if the player is outside the notice radius
+            self.status = "down"
+
+        self.image = self.animations[self.status][self.frame_index]
 
     def update_npc(self, player):
         self.get_status(player)
