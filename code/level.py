@@ -3,6 +3,8 @@ import sys
 
 import pygame
 
+from companion import Companion
+from companion_data import companions
 from enemy import Enemy
 from input_handler import InputHandler
 from level_data import levels
@@ -110,10 +112,18 @@ class Level:
                             elif col in ["400", "401"]:
                                 npc_data = npcs[int(col)]
                                 NPC(
-                                    npc_data["name"],
-                                    (x, y),
-                                    [self.visible_sprites, self.obstacle_sprites],
-                                    self.obstacle_sprites,
+                                    name=npc_data["name"],
+                                    pos=(x, y),
+                                    groups=[self.visible_sprites, self.obstacle_sprites],
+                                    obstacle_sprites=self.obstacle_sprites,
+                                )
+                            elif col in ["500"]:
+                                companion_data = companions[int(col)]
+                                Companion(
+                                    name=companion_data["name"],
+                                    pos=(x, y),
+                                    groups=[self.visible_sprites],
+                                    obstacle_sprites=self.obstacle_sprites,
                                 )
                             else:
                                 if col == "397":
@@ -231,6 +241,7 @@ class Level:
             self.visible_sprites.update()
             self.visible_sprites.update_enemy(self.player)
             self.visible_sprites.update_npc(self.player)
+            self.visible_sprites.update_companion(self.player)
             self.player_attack_logic()
 
 
@@ -288,3 +299,12 @@ class YSortCameraGroup(pygame.sprite.Group):
         ]
         for npc in npc_sprites:
             npc.update_npc(player)
+
+    def update_companion(self, player):
+        companion_sprites = [
+            sprite
+            for sprite in self.sprites()
+            if hasattr(sprite, "sprite_type") and sprite.sprite_type == "companion"
+        ]
+        for companion in companion_sprites:
+            companion.update_companion(player)

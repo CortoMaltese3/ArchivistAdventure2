@@ -14,9 +14,8 @@ class Companion(Entity):
         self.sprite_type = "companion"
         # graphics setup
         self.import_graphics(name)
-        self.status = "idle"
-        self.direction = "down"
-        self.image = self.animations[self.status][self.direction][self.frame_index]
+        self.status = "down"
+        self.image = self.animations[self.status][self.frame_index]
 
         self.follow_distance = 50  # distance at which the companion will follow the player
         self.close_distance = 10
@@ -49,7 +48,7 @@ class Companion(Entity):
             "down_idle": [],
         }
         for animation in self.animations.keys():
-            full_path = COMPANION_PATH / animation
+            full_path = COMPANION_PATH / name / animation
             self.animations[animation] = import_folder(full_path)
 
     def get_player_distance_direction(self, player):
@@ -83,8 +82,11 @@ class Companion(Entity):
         distance, direction = self.get_player_distance_direction(player)
 
         # If the companion is far from the player, make it follow
-        if distance > self.follow_distance:
-            self.status = "moving"
+        if distance <= self.follow_distance:
+            if not "idle" in self.status and not "attack" in self.status:
+                self.status = self.status + "_idle"
+
+        else:
             move_speed = 2  # adjust the speed as needed
             move = direction * move_speed
 
@@ -99,20 +101,16 @@ class Companion(Entity):
             # Determine the facing direction
             if abs(direction.x) > abs(direction.y):
                 if direction.x > 0:
-                    self.direction = "right"
+                    self.status = "right"  # change from self.direction to self.status
                 else:
-                    self.direction = "left"
+                    self.status = "left"  # change from self.direction to self.status
             else:
                 if direction.y > 0:
-                    self.direction = "down"
+                    self.status = "down"  # change from self.direction to self.status
                 else:
-                    self.direction = "up"
-        else:
-            # Default to idle state if the companion is close enough to the player
-            self.status = "idle"
-            self.direction = "down"
+                    self.status = "up"  # change from self.direction to self.status
 
-        self.image = self.animations[self.status + "_" + self.direction][self.frame_index]
+        self.image = self.animations[self.status][self.frame_index]
 
     def update_companion(self, player):
         self.get_status(player)
