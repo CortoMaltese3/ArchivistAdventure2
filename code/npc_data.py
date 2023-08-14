@@ -6,14 +6,14 @@ NPC_NAMES = {
 }
 
 NPC_SPEECHES = {
-    400: ["Hello, I'm Giannis. Welcome to the town!"],
-    401: ["Hi there, I'm Tina. Have a great day!"],
+    400: ["Quick! We need to save my godfather!"],
+    401: ["What happened? You look pale! Here, drink this homemade potion!"],
 }
 
 def create_npc(id):
     name = NPC_NAMES[id]
     sprite_path = NPC_PATH / name / "down" / "down_0.png"
-    speech = NPC_SPEECHES.get(id, ["Hello, adventurer!"]) # default speech if none found
-    return {"id": id, "name": name, "sprite": sprite_path, "speech": speech, "notice_radius": 100}
+    speech = NPC_SPEECHES.get(id, ["Hello, Archivist!"]) # default speech if none found
+    return {"id": id, "name": name, "sprite": sprite_path, "speech": speech, "notice_radius": 80}
 
 npcs = {id: create_npc(id) for id in NPC_NAMES.keys()}
