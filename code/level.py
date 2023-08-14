@@ -23,6 +23,7 @@ class Level:
         # get the display surface
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
+        self.finished = False
 
         # get the stage
         self.stage = stage
@@ -204,11 +205,14 @@ class Level:
         elif actions["previous_option"]:
             self.input_handler.menu_option = (self.input_handler.menu_option - 1) % 3
         elif actions["select_option"]:
+            # Continue game
             if self.input_handler.menu_option == 0:
                 self.toggle_menu()
+            # Switch back to overworld view
             elif self.input_handler.menu_option == 1:
                 self.game_paused = False
-                # Switch back to overworld view here
+                self.finished = True
+            # Quit game
             elif self.input_handler.menu_option == 2:
                 pygame.quit()
                 sys.exit()

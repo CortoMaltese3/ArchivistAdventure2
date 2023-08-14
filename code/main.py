@@ -63,6 +63,10 @@ class Game:
                 self.overworld.run()
             else:
                 self.level.run()
+                if self.level.finished:  # Check if the level is finished
+                    self.play_overworld_music()
+                    self.status = "overworld"  # Switch to the overworld view
+                    del self.level
 
             pygame.display.update()
             self.clock.tick(FPS)
