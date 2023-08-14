@@ -95,15 +95,9 @@ class Companion(Entity):
 
             # Determine the facing direction
             if abs(direction.x) > abs(direction.y):
-                if direction.x > 0:
-                    self.status = "right"
-                else:
-                    self.status = "left"
+                self.status = "right" if direction.x > 0 else "left"
             else:
-                if direction.y > 0:
-                    self.status = "down"
-                else:
-                    self.status = "up"
+                self.status = "down" if direction.y > 0 else "up"
 
         # Handle the animation frames using animation_speed
         elapsed_time = self.clock.tick(FPS)
