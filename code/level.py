@@ -264,8 +264,9 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
             if hasattr(sprite, "sprite_type") and sprite.sprite_type == "npc":
-                bubble_pos = offset_pos - pygame.Vector2(10, sprite.speech_bubble.image.get_height()) # or any other adjustments you need
+                bubble_pos = offset_pos - pygame.Vector2((sprite.speech_bubble.image.get_width() - sprite.rect.width) / 2, sprite.speech_bubble.image.get_height())
                 sprite.speech_bubble.draw(self.display_surface, bubble_pos)
+
 
     def update_enemy(self, player):
         enemy_sprites = [

@@ -36,8 +36,6 @@ BAR_HEIGHT = 20
 HEALTH_BAR_WIDTH = 200
 ENERGY_BAR_WIDTH = 140
 ITEM_BOX_SIZE = 80
-UI_FONT = GRAPHICS_PATH / "font" / "joystix.ttf"
-UI_FONT_SIZE = 18
 
 # general colors
 WATER_COLOR = "#71ddee"
@@ -51,6 +49,10 @@ ENERGY_COLOR = "blue"
 UI_BORDER_COLOR_ACTIVE = "gold"
 BLACK_COLOR = "black"
 
+# text
+LINE_SPACING = 5
+UI_FONT = GRAPHICS_PATH / "font" / "joystix.ttf"
+UI_FONT_SIZE = 18
 
 # weapons
 weapon_data = {
