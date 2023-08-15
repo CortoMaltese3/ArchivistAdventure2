@@ -1,23 +1,17 @@
-from random import choice, randint
+from random import randint
 import sys
 
 import pygame
 
-from data.companion_data import companions
+from .builder import LevelBuilder, EntityBuilder
 from data.level_data import levels
-from data.npc_data import npcs
 from elements.magic import MagicPlayer
 from elements.particles import AnimationPlayer
 from elements.weapon import Weapon
-from entities.companion import Companion
-from entities.enemy import Enemy
-from entities.npc import NPC
-from entities.player import Player
-from settings import  HEIGHT, TILESIZE, WIDTH, WORLD_GRAPH_PATH
+from settings import HEIGHT, WIDTH
 from ui.base import UI
-from ui.tile import Tile
 from user.input_handler import InputHandler
-from utils.support import import_csv_layout, import_folder
+from utils.support import import_csv_layout
 
 
 class Level:
@@ -45,9 +39,6 @@ class Level:
         self.attack_sprites = pygame.sprite.Group()
         self.attackable_sprites = pygame.sprite.Group()
 
-        # sprite setup
-        self.create_map()
-
         # user interface
         self.ui = UI()
 
@@ -55,92 +46,27 @@ class Level:
         self.animation_player = AnimationPlayer()
         self.magic_player = MagicPlayer(self.animation_player)
 
-    def create_map(self):
-        # use the level data
-        layouts = {
-            "boundary": import_csv_layout(self.level_data["constraints"]),
-            "grass": import_csv_layout(self.level_data["grass"]),
-            "object": import_csv_layout(self.level_data["objects"]),
-            "entities": import_csv_layout(self.level_data["entities"]),
-        }
-        graphics = {
-            "grass": import_folder(WORLD_GRAPH_PATH / "grass"),
-            "objects": import_folder(WORLD_GRAPH_PATH / "objects"),
-        }
+        self.level_builder = LevelBuilder(self.level_data)
+        self.level_builder.set_sprite_groups(
+            self.visible_sprites, self.obstacle_sprites, self.attackable_sprites
+        )
+        self.level_builder.build_map()
 
-        for style, layout in layouts.items():
-            for row_index, row in enumerate(layout):
-                for col_index, col in enumerate(row):
-                    if col != "-1":
-                        x = col_index * TILESIZE
-                        y = row_index * TILESIZE
-                        if style == "boundary":
-                            Tile((x, y), [self.obstacle_sprites], "invisible")
-                        if style == "grass":
-                            random_grass_image = choice(graphics["grass"])
-                            Tile(
-                                (x, y),
-                                [
-                                    self.visible_sprites,
-                                    self.obstacle_sprites,
-                                    self.attackable_sprites,
-                                ],
-                                "grass",
-                                random_grass_image,
-                            )
+        self.entity_builder = EntityBuilder(
+            self.level_data, self.damage_player, self.trigger_death_particles, self.add_exp
+        )
 
-                        if style == "object":
-                            surf = graphics["objects"][int(col)]
-                            Tile(
-                                (x, y),
-                                [self.visible_sprites, self.obstacle_sprites],
-                                "object",
-                                surf,
-                            )
-
-                        if style == "entities":
-                            if col == "394":
-                                self.player = Player(
-                                    (x, y),
-                                    [self.visible_sprites],
-                                    self.obstacle_sprites,
-                                    self.create_attack,
-                                    self.destroy_attack,
-                                    self.create_magic,
-                                    self.input_handler,
-                                )
-                            elif col in ["400", "401"]:
-                                npc_data = npcs[int(col)]
-                                NPC(
-                                    name=npc_data["name"],
-                                    pos=(x, y),
-                                    groups=[self.visible_sprites, self.obstacle_sprites],
-                                    obstacle_sprites=self.obstacle_sprites,
-                                )
-                            elif col in ["500"]:
-                                companion_data = companions[int(col)]
-                                Companion(
-                                    name=companion_data["name"],
-                                    pos=(x, y),
-                                    groups=[self.visible_sprites],
-                                    obstacle_sprites=self.obstacle_sprites,
-                                )
-                            else:
-                                if col == "397":
-                                    monster_name = "scarab"
-                                elif col == "398":
-                                    monster_name = "book"
-                                else:
-                                    monster_name = "book"  # TODO: Change it
-                                Enemy(
-                                    monster_name,
-                                    (x, y),
-                                    [self.visible_sprites, self.attackable_sprites],
-                                    self.obstacle_sprites,
-                                    self.damage_player,
-                                    self.trigger_death_particles,
-                                    self.add_exp,
-                                )
+        self.entity_builder.set_layout(import_csv_layout(self.level_data["entities"]))
+        self.entity_builder.create_entities(
+            self.visible_sprites,
+            self.obstacle_sprites,
+            self.attackable_sprites,
+            self.input_handler,
+            create_attack=self.create_attack,
+            destroy_attack=self.destroy_attack,
+            create_magic=self.create_magic,
+        )
+        self.player = self.entity_builder.get_player()
 
     def create_attack(self):
         self.current_attack = Weapon(self.player, [self.visible_sprites, self.attack_sprites])
