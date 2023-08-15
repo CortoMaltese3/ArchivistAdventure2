@@ -1,4 +1,4 @@
-from settings import AUDIO_PATH, LEVEL_PATH, OVERWORLD_PATH
+from settings import LEVEL_PATH, OVERWORLD_PATH, WORLD_AUDIO_PATH
 
 
 def create_level(level_num, node_pos):
@@ -11,7 +11,7 @@ def create_level(level_num, node_pos):
         "node_graphics": OVERWORLD_PATH / str(level_num),
         "node_pos": node_pos,
         "unlock": level_num + 1,
-        "bg_music": AUDIO_PATH / "level_bg_music" / f"{str(level_num)}.ogg",
+        "bg_music": WORLD_AUDIO_PATH / f"{str(level_num)}.ogg",
     }
 
 

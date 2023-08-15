@@ -1,4 +1,4 @@
-from settings import AUDIO_PATH
+from settings import ENEMY_AUDIO_PATH
 
 # enemy
 monster_data = {
@@ -7,7 +7,7 @@ monster_data = {
         "exp": 120,
         "damage": 6,
         "attack_type": "slash",
-        "attack_sound": AUDIO_PATH / "attack" / "slash.wav",
+        "attack_sound": ENEMY_AUDIO_PATH / "slash.wav",
         "speed": 3,
         "resistance": 3,
         "attack_radius": 50,
@@ -18,7 +18,7 @@ monster_data = {
         "exp": 120,
         "damage": 6,
         "attack_type": "thunder",
-        "attack_sound": AUDIO_PATH / "attack" / "fireball.wav",
+        "attack_sound": ENEMY_AUDIO_PATH / "fireball.wav",
         "speed": 3,
         "resistance": 3,
         "attack_radius": 50,

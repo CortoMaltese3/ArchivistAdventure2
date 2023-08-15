@@ -2,7 +2,7 @@ import pygame
 
 from data.magic_data import magic_data
 from data.weapon_data import weapon_data
-from settings import AUDIO_PATH, HITBOX_OFFSET, PLAYER_PATH
+from settings import HITBOX_OFFSET, PLAYER_PATH, WEAPONS_AUDIO_PATH
 from utils.support import import_folder
 from .entity import Entity
 
@@ -79,7 +79,7 @@ class Player(Entity):
         self.invulnerability_duration = 500
 
         # import a sound
-        self.weapon_attack_sound = pygame.mixer.Sound(AUDIO_PATH / "sword.wav")
+        self.weapon_attack_sound = pygame.mixer.Sound(WEAPONS_AUDIO_PATH / "sword.wav")
         self.weapon_attack_sound.set_volume(0.4)
 
     def import_player_assets(self):

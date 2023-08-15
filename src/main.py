@@ -2,10 +2,11 @@ import sys
 
 import pygame
 
+from audio.audio_manager import AudioManager
 from data.level_data import levels
 from levels.base import Level
 from levels.overworld import Overworld
-from settings import WIDTH, HEIGHT, ICONS_PATH, AUDIO_PATH, BLACK_COLOR, FPS
+from settings import AUDIO_PATH, BLACK_COLOR, FPS, HEIGHT, ICONS_PATH, WIDTH
 
 
 class Game:
@@ -23,11 +24,8 @@ class Game:
         self.current_level = 0
 
         # sound
-        self.main_sound = pygame.mixer.Sound(AUDIO_PATH / "level_bg_music" / "0.ogg")
-        self.overworld_sound = pygame.mixer.Sound(AUDIO_PATH / "level_bg_music" / "overworld.ogg")  # Overworld music
-        self.main_sound.set_volume(0.5)
-        self.overworld_sound.set_volume(0.5)
-        self.play_overworld_music()
+        self.audio_manager = AudioManager()
+        self.audio_manager.play_overworld_music()
 
         # overworld creation
         self.overworld = Overworld(
@@ -35,22 +33,11 @@ class Game:
         )
         self.status = "overworld"
 
-    def play_overworld_music(self):
-        self.main_sound.stop()  # Stop the level music
-        self.overworld_sound.play(loops=-1)  # Play overworld music
-
-    def play_level_music(self, selected_level):
-        self.overworld_sound.stop()  # Stop overworld music
-        level_music_path = str(levels[selected_level]["bg_music"])  # Convert to string
-        level_music = pygame.mixer.Sound(level_music_path)
-        level_music.set_volume(0.5)
-        level_music.play(loops=-1)  # Play level-specific music
-
     def create_level(self, selected_level):
         self.level = Level(stage=selected_level)
         self.status = "level"
-        self.main_sound = pygame.mixer.Sound(levels[selected_level]["bg_music"])
-        self.play_level_music(selected_level)  # Switch to level music
+        level_music_path = levels[selected_level]["bg_music"]
+        self.audio_manager.play_level_music(level_music_path)
 
     def run(self):
         while True:
@@ -65,9 +52,9 @@ class Game:
                 self.overworld.run()
             else:
                 self.level.run()
-                if self.level.finished:  # Check if the level is finished
-                    self.play_overworld_music()
-                    self.status = "overworld"  # Switch to the overworld view
+                if self.level.finished:
+                    self.audio_manager.play_overworld_music()
+                    self.status = "overworld"
                     del self.level
 
             pygame.display.update()

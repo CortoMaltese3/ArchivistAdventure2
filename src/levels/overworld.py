@@ -9,7 +9,6 @@ from utils.support import import_folder
 class Node(pygame.sprite.Sprite):
     def __init__(self, pos, status, icon_speed, path):
         super().__init__()
-        print(f"path: {path}")
         self.frames = import_folder(path)
         self.frame_index = 0
         self.image = self.frames[self.frame_index]

@@ -13,7 +13,7 @@ from entities.companion import Companion
 from entities.enemy import Enemy
 from entities.npc import NPC
 from entities.player import Player
-from settings import GRAPHICS_PATH, HEIGHT, TILESIZE, WIDTH
+from settings import  HEIGHT, TILESIZE, WIDTH, WORLD_GRAPH_PATH
 from ui.base import UI
 from ui.tile import Tile
 from user.input_handler import InputHandler
@@ -64,8 +64,8 @@ class Level:
             "entities": import_csv_layout(self.level_data["entities"]),
         }
         graphics = {
-            "grass": import_folder(GRAPHICS_PATH / "grass"),
-            "objects": import_folder(GRAPHICS_PATH / "objects"),
+            "grass": import_folder(WORLD_GRAPH_PATH / "grass"),
+            "objects": import_folder(WORLD_GRAPH_PATH / "objects"),
         }
 
         for style, layout in layouts.items():

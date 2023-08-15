@@ -1,15 +1,15 @@
 from random import randint
 
 import pygame
-from settings import AUDIO_PATH, TILESIZE
+from settings import MAGIC_AUDIO_PATH, TILESIZE
 
 
 class MagicPlayer:
     def __init__(self, animation_player):
         self.animation_player = animation_player
         self.sounds = {
-            "heal": pygame.mixer.Sound(AUDIO_PATH / "heal.wav"),
-            "flame": pygame.mixer.Sound(AUDIO_PATH / "fire.wav"),
+            "heal": pygame.mixer.Sound(MAGIC_AUDIO_PATH / "heal.wav"),
+            "flame": pygame.mixer.Sound(MAGIC_AUDIO_PATH / "fire.wav"),
         }
 
     def heal(self, player, strength, cost, groups):

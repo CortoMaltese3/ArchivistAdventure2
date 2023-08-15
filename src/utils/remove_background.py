@@ -20,8 +20,8 @@ def remove_background(image_path):
     img.save(image_path, "PNG")
 
 # Path to the companions folder
-companions_path = 'graphics/companions/*/*/*.png'
-
+# companions_path = 'graphics/companions/*/*/*.png'
+companions_path = 'C:\\Users\\giorg\\Projects\\ArchivistAdventure2\\graphics\\ui\\icons\\icon.ico'
 # Use glob to iterate through all PNG files in the specified path
 for filename in glob.glob(companions_path):
     print(f"Processing {filename}")

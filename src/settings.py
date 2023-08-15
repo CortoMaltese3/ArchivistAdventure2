@@ -30,6 +30,14 @@ PARTICLES_PATH = GRAPHICS_PATH / "particles"
 PLAYER_PATH = ENTITIES_GRAPH_PATH / "player"
 WEAPONS_PATH = GRAPHICS_PATH / "weapons"
 
+# Get secondary audio directories of the application
+ENTITIES_AUDIO_PATH = AUDIO_PATH / 'entities'
+ENEMY_AUDIO_PATH = ENTITIES_AUDIO_PATH / 'enemy'
+
+MAGIC_AUDIO_PATH = AUDIO_PATH / 'magic'
+WEAPONS_AUDIO_PATH = AUDIO_PATH / 'weapons'
+WORLD_AUDIO_PATH = AUDIO_PATH / 'world'
+
 # game setup
 WIDTH = 1280
 HEIGHT = 720
@@ -68,4 +76,5 @@ UI_FONT = UI_GRAPH_PATH / "font" / "joystix.ttf"
 UI_FONT_SIZE = 18
 UI_FONT_WIDTH = 15
 
-
+# sound
+DEFAULT_VOLUME = 0.5
