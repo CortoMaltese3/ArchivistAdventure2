@@ -3,21 +3,21 @@ import sys
 
 import pygame
 
-from companion import Companion
-from companion_data import companions
-from enemy import Enemy
-from input_handler import InputHandler
-from level_data import levels
-from magic import MagicPlayer
-from npc import NPC
-from npc_data import npcs
-from particles import AnimationPlayer
-from player import Player
+from data.companion_data import companions
+from data.level_data import levels
+from data.npc_data import npcs
+from elements.magic import MagicPlayer
+from elements.particles import AnimationPlayer
+from elements.weapon import Weapon
+from entities.companion import Companion
+from entities.enemy import Enemy
+from entities.npc import NPC
+from entities.player import Player
 from settings import GRAPHICS_PATH, HEIGHT, TILESIZE, WIDTH
-from support import import_csv_layout, import_folder
-from tile import Tile
-from ui import UI
-from weapon import Weapon
+from ui.base import UI
+from ui.tile import Tile
+from user.input_handler import InputHandler
+from utils.support import import_csv_layout, import_folder
 
 
 class Level:

@@ -1,6 +1,6 @@
 # Archivist Adventure 2
 
-Embark on a captivating journey in "ArchivistAdventure2," a retro-inspired RPG that blends the charm of theclassic titles. Play as a courageous young archivist, whose mission is to rescue her partner imprisoned by malevolent spirits and their wicked minions.
+Embark on a captivating journey in "ArchivistAdventure2," a retro-inspired RPG that blends the charm of the classic titles. Play as a courageous young archivist, whose mission is to rescue her partner imprisoned by malevolent spirits and their wicked minions.
 
 Travel through a world rich with history, puzzles, and secrets. Along the way, meet supportive friends and family who will equip you with essential weapons, share arcane magic, and impart valuable information. Face off against nefarious foes, solve intricate puzzles, and unravel the mysteries that surround you.
 

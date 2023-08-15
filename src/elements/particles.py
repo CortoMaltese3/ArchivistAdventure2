@@ -3,7 +3,7 @@ from random import choice
 import pygame
 
 from settings import PARTICLES_PATH
-from support import import_folder
+from utils.support import import_folder
 
 
 class AnimationPlayer:

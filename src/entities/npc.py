@@ -1,10 +1,10 @@
 import pygame
 
-from entity import Entity
-from npc_data import npcs, NPC_NAMES
+from data.npc_data import npcs, NPC_NAMES
+from .entity import Entity
 from settings import FPS, HITBOX_OFFSET, NPC_PATH
-from speech_bubble import SpeechBubble
-from support import import_folder
+from ui.speech_bubble import SpeechBubble
+from utils.support import import_folder
 
 
 class NPC(Entity):

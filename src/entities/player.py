@@ -1,8 +1,10 @@
 import pygame
 
-from settings import AUDIO_PATH, HITBOX_OFFSET, PLAYER_PATH, magic_data, weapon_data
-from support import import_folder
-from entity import Entity
+from data.magic_data import magic_data
+from data.weapon_data import weapon_data
+from settings import AUDIO_PATH, HITBOX_OFFSET, PLAYER_PATH
+from utils.support import import_folder
+from .entity import Entity
 
 
 class Player(Entity):

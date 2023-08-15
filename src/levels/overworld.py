@@ -1,14 +1,15 @@
 import pygame
 
-from input_handler import InputHandler
-from level_data import levels
-from support import import_folder
-from settings import GRAPHICS_PATH
+from data.level_data import levels
+from settings import OVERWORLD_PATH
+from user.input_handler import InputHandler
+from utils.support import import_folder
 
 
 class Node(pygame.sprite.Sprite):
     def __init__(self, pos, status, icon_speed, path):
         super().__init__()
+        print(f"path: {path}")
         self.frames = import_folder(path)
         self.frame_index = 0
         self.image = self.frames[self.frame_index]
@@ -44,7 +45,7 @@ class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
-        self.image = pygame.image.load(GRAPHICS_PATH / "overworld" / "selector.png").convert_alpha()
+        self.image = pygame.image.load(OVERWORLD_PATH / "selector.png").convert_alpha()
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):

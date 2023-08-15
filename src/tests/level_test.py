@@ -1,12 +1,11 @@
-import os
 import unittest
 from unittest.mock import patch
 
 import pygame
 
-from level import Level
-from magic import MagicPlayer
-from weapon import Weapon
+from elements.magic import MagicPlayer
+from elements.weapon import Weapon
+from levels.base import Level
 
 
 class TestLevel(unittest.TestCase):
@@ -31,8 +30,8 @@ class TestLevel(unittest.TestCase):
         self.assertIsInstance(self.level, Level)
         self.assertFalse(self.level.game_paused)
 
-    @patch("code.support.import_csv_layout")
-    @patch("code.support.import_folder")
+    @patch("src.support.import_csv_layout")
+    @patch("src.support.import_folder")
     def test_create_map(self, mock_import_folder, mock_import_csv_layout):
         # Mocking the return values of the functions
         mock_import_folder.return_value = {"grass": ["image1.png", "image2.png"]}

@@ -1,6 +1,5 @@
 from PIL import Image
 import glob
-import os
 
 def remove_background(image_path):
     img = Image.open(image_path).convert("RGBA")

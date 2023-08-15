@@ -1,6 +1,7 @@
+from random import randint
+
 import pygame
 from settings import AUDIO_PATH, TILESIZE
-from random import randint
 
 
 class MagicPlayer:

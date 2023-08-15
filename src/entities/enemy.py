@@ -1,8 +1,9 @@
 import pygame
 
-from entity import Entity
-from settings import AUDIO_PATH, MONSTERS_PATH, monster_data
-from support import import_folder
+from data.enemy_data import monster_data
+from .entity import Entity
+from settings import AUDIO_PATH, MONSTERS_PATH
+from utils.support import import_folder
 
 
 class Enemy(Entity):

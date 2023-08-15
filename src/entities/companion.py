@@ -1,10 +1,10 @@
 import pygame
 
-from companion_data import companions, COMPANION_NAMES
-from entity import Entity
+from data.companion_data import companions, COMPANION_NAMES
+from .entity import Entity
 from settings import COMPANION_PATH, FPS, HITBOX_OFFSET
-from speech_bubble import SpeechBubble
-from support import import_folder
+from ui.speech_bubble import SpeechBubble
+from utils.support import import_folder
 
 
 class Companion(Entity):
