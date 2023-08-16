@@ -10,7 +10,7 @@ from elements.magic import MagicPlayer
 from elements.particles import AnimationPlayer
 from elements.weapon import Weapon
 from ui.base import UI
-from ui.pause_menu import PauseMenu
+from ui.pause_menu import MenuOption, PauseMenu
 from user.input_handler import InputHandler
 from utils.support import import_csv_layout
 
@@ -133,7 +133,7 @@ class Level:
 
         if self.game_paused:
             result = self.pause_menu.run()
-            if result == "finished":
+            if result == MenuOption.FINISHED:
                 self.game_paused = False
                 self.finished = True
         else:

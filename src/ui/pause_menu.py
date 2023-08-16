@@ -11,6 +11,7 @@ class MenuOption(Enum):
     CONTINUE = 0
     MAIN_MENU = 1
     QUIT = 2
+    FINISHED = 3
 
 
 class PauseMenu:
@@ -38,7 +39,7 @@ class PauseMenu:
         actions = self.input_handler.handle_pause_input()
         option_actions = {
             MenuOption.CONTINUE: self.toggle_callback,
-            MenuOption.MAIN_MENU: lambda: "finished",
+            MenuOption.MAIN_MENU: lambda: MenuOption.FINISHED,
             MenuOption.QUIT: lambda: sys.exit(),
         }
 
