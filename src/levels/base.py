@@ -11,6 +11,7 @@ from elements.particles import AnimationPlayer
 from elements.weapon import Weapon
 from settings import HEIGHT, WIDTH
 from ui.base import UI
+from ui.pause_menu import PauseMenu
 from user.input_handler import InputHandler
 from utils.support import import_csv_layout
 
@@ -30,6 +31,9 @@ class Level:
 
         # controller setup
         self.input_handler = InputHandler()
+
+        # pause menu setup
+        self.pause_menu = PauseMenu(self.display_surface, self.input_handler)
 
         # sprite group setup
         self.visible_sprites = YSortCameraGroup(self.stage)
@@ -170,4 +174,3 @@ class Level:
             self.visible_sprites.update_npc(self.player)
             self.visible_sprites.update_companion(self.player)
             self.player_attack_logic()
-
