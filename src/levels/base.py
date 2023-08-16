@@ -9,7 +9,6 @@ from data.level_data import levels
 from elements.magic import MagicPlayer
 from elements.particles import AnimationPlayer
 from elements.weapon import Weapon
-from settings import HEIGHT, WIDTH
 from ui.base import UI
 from ui.pause_menu import PauseMenu
 from user.input_handler import InputHandler
@@ -33,7 +32,7 @@ class Level:
         self.input_handler = InputHandler()
 
         # pause menu setup
-        self.pause_menu = PauseMenu(self.toggle_menu)
+        self.pause_menu = PauseMenu(self.toggle_menu, self.input_handler)
 
         # sprite group setup
         self.visible_sprites = YSortCameraGroup(self.stage)
