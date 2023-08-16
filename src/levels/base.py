@@ -33,7 +33,7 @@ class Level:
         self.input_handler = InputHandler()
 
         # pause menu setup
-        self.pause_menu = PauseMenu(self.display_surface, self.input_handler)
+        self.pause_menu = PauseMenu(self.toggle_menu)
 
         # sprite group setup
         self.visible_sprites = YSortCameraGroup(self.stage)
@@ -125,39 +125,6 @@ class Level:
     def toggle_menu(self):
         self.game_paused = not self.game_paused
 
-    def draw_pause_menu(self):
-        font = pygame.font.Font(None, 36)
-        options = ["Continue", "Main Menu", "Quit"]
-        for index, option in enumerate(options):
-            color = (255, 255, 255) if index != self.input_handler.menu_option else (255, 0, 0)
-            text = font.render(option, True, color)
-            self.display_surface.blit(
-                text,
-                (
-                    WIDTH // 2 - text.get_width() // 2,
-                    HEIGHT // 2 - text.get_height() // 2 + index * 40,
-                ),
-            )
-
-    def handle_pause_menu(self):
-        actions = self.input_handler.handle_pause_input()
-        if actions["next_option"]:
-            self.input_handler.menu_option = (self.input_handler.menu_option + 1) % 3
-        elif actions["previous_option"]:
-            self.input_handler.menu_option = (self.input_handler.menu_option - 1) % 3
-        elif actions["select_option"]:
-            # Continue game
-            if self.input_handler.menu_option == 0:
-                self.toggle_menu()
-            # Switch back to overworld view
-            elif self.input_handler.menu_option == 1:
-                self.game_paused = False
-                self.finished = True
-            # Quit game
-            elif self.input_handler.menu_option == 2:
-                pygame.quit()
-                sys.exit()
-
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.ui.display(self.player)
@@ -166,8 +133,10 @@ class Level:
             self.toggle_menu()
 
         if self.game_paused:
-            self.draw_pause_menu()
-            self.handle_pause_menu()
+            result = self.pause_menu.run()
+            if result == "finished":
+                self.game_paused = False
+                self.finished = True
         else:
             self.visible_sprites.update()
             self.visible_sprites.update_enemy(self.player)
