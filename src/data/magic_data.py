@@ -1,15 +1,15 @@
-from settings import PARTICLES_PATH
+from settings import paths
 
 # magic
 magic_data = {
     "flame": {
         "strength": 5,
         "cost": 20,
-        "graphic": PARTICLES_PATH / "flame" / "fire.png",
+        "graphic": paths.PARTICLES_DIR / "flame" / "fire.png",
     },
     "heal": {
         "strength": 20,
         "cost": 10,
-        "graphic": PARTICLES_PATH / "heal" / "heal.png",
+        "graphic": paths.PARTICLES_DIR / "heal" / "heal.png",
     },
 }

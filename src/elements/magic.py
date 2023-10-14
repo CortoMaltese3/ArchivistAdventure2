@@ -1,15 +1,15 @@
 from random import randint
 
 import pygame
-from settings import MAGIC_AUDIO_PATH, TILESIZE
+from settings import game_settings, paths
 
 
 class MagicPlayer:
     def __init__(self, animation_player):
         self.animation_player = animation_player
         self.sounds = {
-            "heal": pygame.mixer.Sound(MAGIC_AUDIO_PATH / "heal.wav"),
-            "flame": pygame.mixer.Sound(MAGIC_AUDIO_PATH / "fire.wav"),
+            "heal": pygame.mixer.Sound(paths.MAGIC_AUDIO_DIR / "heal.wav"),
+            "flame": pygame.mixer.Sound(paths.MAGIC_AUDIO_DIR / "fire.wav"),
         }
 
     def heal(self, player, strength, cost, groups):
@@ -38,12 +38,24 @@ class MagicPlayer:
 
             for i in range(1, 6):
                 if direction.x:  # horizontal
-                    offset_x = (direction.x * i) * TILESIZE
-                    x = player.rect.centerx + offset_x + randint(-TILESIZE // 3, TILESIZE // 3)
-                    y = player.rect.centery + randint(-TILESIZE // 3, TILESIZE // 3)
+                    offset_x = (direction.x * i) * game_settings.TILESIZE
+                    x = (
+                        player.rect.centerx
+                        + offset_x
+                        + randint(-game_settings.TILESIZE // 3, game_settings.TILESIZE // 3)
+                    )
+                    y = player.rect.centery + randint(
+                        -game_settings.TILESIZE // 3, game_settings.TILESIZE // 3
+                    )
                     self.animation_player.create_particles("flame", (x, y), groups)
                 else:  # vertical
-                    offset_y = (direction.y * i) * TILESIZE
-                    x = player.rect.centerx + randint(-TILESIZE // 3, TILESIZE // 3)
-                    y = player.rect.centery + offset_y + randint(-TILESIZE // 3, TILESIZE // 3)
+                    offset_y = (direction.y * i) * game_settings.TILESIZE
+                    x = player.rect.centerx + randint(
+                        -game_settings.TILESIZE // 3, game_settings.TILESIZE // 3
+                    )
+                    y = (
+                        player.rect.centery
+                        + offset_y
+                        + randint(-game_settings.TILESIZE // 3, game_settings.TILESIZE // 3)
+                    )
                     self.animation_player.create_particles("flame", (x, y), groups)

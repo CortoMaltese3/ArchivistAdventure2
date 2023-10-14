@@ -2,18 +2,22 @@ import pygame
 
 from data.magic_data import magic_data
 from data.weapon_data import weapon_data
-from settings import *
+from settings import game_settings, paths
 
 
 class UI:
     def __init__(self):
         # general
         self.display_surface = pygame.display.get_surface()
-        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
+        self.font = pygame.font.Font(paths.UI_FONT_PATH, game_settings.UI_FONT_SIZE)
 
         # bar setup
-        self.health_bar_rect = pygame.Rect(10, 10, HEALTH_BAR_WIDTH, BAR_HEIGHT)
-        self.energy_bar_rect = pygame.Rect(10, 34, ENERGY_BAR_WIDTH, BAR_HEIGHT)
+        self.health_bar_rect = pygame.Rect(
+            10, 10, game_settings.HEALTH_BAR_WIDTH, game_settings.BAR_HEIGHT
+        )
+        self.energy_bar_rect = pygame.Rect(
+            10, 34, game_settings.ENERGY_BAR_WIDTH, game_settings.BAR_HEIGHT
+        )
 
         # convert weapon dictionary
         self.weapon_graphics = []
@@ -30,7 +34,7 @@ class UI:
 
     def show_bar(self, current, max_amount, bg_rect, color):
         # draw bg
-        pygame.draw.rect(self.display_surface, UI_BG_COLOR, bg_rect)
+        pygame.draw.rect(self.display_surface, game_settings.UI_BG_COLOR, bg_rect)
 
         # converting stat to pixel
         ratio = current / max_amount
@@ -40,25 +44,27 @@ class UI:
 
         # drawing the bar
         pygame.draw.rect(self.display_surface, color, current_rect)
-        pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, bg_rect, 3)
+        pygame.draw.rect(self.display_surface, game_settings.UI_BORDER_COLOR, bg_rect, 3)
 
     def show_exp(self, exp):
-        text_surf = self.font.render(str(int(exp)), False, TEXT_COLOR)
+        text_surf = self.font.render(str(int(exp)), False, game_settings.TEXT_COLOR)
         x = self.display_surface.get_size()[0] - 20
         y = self.display_surface.get_size()[1] - 20
         text_rect = text_surf.get_rect(bottomright=(x, y))
 
-        pygame.draw.rect(self.display_surface, UI_BG_COLOR, text_rect.inflate(20, 20))
+        pygame.draw.rect(self.display_surface, game_settings.UI_BG_COLOR, text_rect.inflate(20, 20))
         self.display_surface.blit(text_surf, text_rect)
-        pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, text_rect.inflate(20, 20), 3)
+        pygame.draw.rect(
+            self.display_surface, game_settings.UI_BORDER_COLOR, text_rect.inflate(20, 20), 3
+        )
 
     def selection_box(self, left, top, has_switched):
-        bg_rect = pygame.Rect(left, top, ITEM_BOX_SIZE, ITEM_BOX_SIZE)
-        pygame.draw.rect(self.display_surface, UI_BG_COLOR, bg_rect)
+        bg_rect = pygame.Rect(left, top, game_settings.ITEM_BOX_SIZE, game_settings.ITEM_BOX_SIZE)
+        pygame.draw.rect(self.display_surface, game_settings.UI_BG_COLOR, bg_rect)
         if has_switched:
-            pygame.draw.rect(self.display_surface, UI_BORDER_COLOR_ACTIVE, bg_rect, 3)
+            pygame.draw.rect(self.display_surface, game_settings.UI_BORDER_COLOR_ACTIVE, bg_rect, 3)
         else:
-            pygame.draw.rect(self.display_surface, UI_BORDER_COLOR, bg_rect, 3)
+            pygame.draw.rect(self.display_surface, game_settings.UI_BORDER_COLOR, bg_rect, 3)
         return bg_rect
 
     def weapon_overlay(self, weapon_index, has_switched):
@@ -76,8 +82,12 @@ class UI:
         self.display_surface.blit(magic_surf, magic_rect)
 
     def display(self, player):
-        self.show_bar(player.health, player.stats["health"], self.health_bar_rect, HEALTH_COLOR)
-        self.show_bar(player.energy, player.stats["energy"], self.energy_bar_rect, ENERGY_COLOR)
+        self.show_bar(
+            player.health, player.stats["health"], self.health_bar_rect, game_settings.HEALTH_COLOR
+        )
+        self.show_bar(
+            player.energy, player.stats["energy"], self.energy_bar_rect, game_settings.ENERGY_COLOR
+        )
 
         self.show_exp(player.exp)
 

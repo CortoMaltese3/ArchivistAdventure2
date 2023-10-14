@@ -2,7 +2,7 @@ from random import choice
 
 import pygame
 
-from settings import PARTICLES_PATH
+from settings import paths
 from utils.support import import_folder
 
 
@@ -10,34 +10,34 @@ class AnimationPlayer:
     def __init__(self):
         self.frames = {
             # magic
-            "flame": import_folder(PARTICLES_PATH / "flame" / "frames"),
-            "aura": import_folder(PARTICLES_PATH / "aura"),
-            "heal": import_folder(PARTICLES_PATH / "heal" / "frames"),
+            "flame": import_folder(paths.PARTICLES_DIR / "flame" / "frames"),
+            "aura": import_folder(paths.PARTICLES_DIR / "aura"),
+            "heal": import_folder(paths.PARTICLES_DIR / "heal" / "frames"),
             # attacks
-            "claw": import_folder(PARTICLES_PATH / "claw"),
-            "slash": import_folder(PARTICLES_PATH / "slash"),
-            "sparkle": import_folder(PARTICLES_PATH / "sparkle"),
-            "leaf_attack": import_folder(PARTICLES_PATH / "leaf_attack"),
-            "thunder": import_folder(PARTICLES_PATH / "thunder"),
+            "claw": import_folder(paths.PARTICLES_DIR / "claw"),
+            "slash": import_folder(paths.PARTICLES_DIR / "slash"),
+            "sparkle": import_folder(paths.PARTICLES_DIR / "sparkle"),
+            "leaf_attack": import_folder(paths.PARTICLES_DIR / "leaf_attack"),
+            "thunder": import_folder(paths.PARTICLES_DIR / "thunder"),
             # monster deaths
-            "squid": import_folder(PARTICLES_PATH / "smoke_orange"),
-            "spirit": import_folder(PARTICLES_PATH / "nova"),
-            "scarab": import_folder(PARTICLES_PATH / "scarab"),
-            "book": import_folder(PARTICLES_PATH / "book"),
+            "squid": import_folder(paths.PARTICLES_DIR / "smoke_orange"),
+            "spirit": import_folder(paths.PARTICLES_DIR / "nova"),
+            "scarab": import_folder(paths.PARTICLES_DIR / "scarab"),
+            "book": import_folder(paths.PARTICLES_DIR / "book"),
             # leafs
             "leaf": (
-                import_folder(PARTICLES_PATH / "leaf1"),
-                import_folder(PARTICLES_PATH / "leaf2"),
-                import_folder(PARTICLES_PATH / "leaf3"),
-                import_folder(PARTICLES_PATH / "leaf4"),
-                import_folder(PARTICLES_PATH / "leaf5"),
-                import_folder(PARTICLES_PATH / "leaf6"),
-                self.reflect_images(import_folder(PARTICLES_PATH / "leaf1")),
-                self.reflect_images(import_folder(PARTICLES_PATH / "leaf2")),
-                self.reflect_images(import_folder(PARTICLES_PATH / "leaf3")),
-                self.reflect_images(import_folder(PARTICLES_PATH / "leaf4")),
-                self.reflect_images(import_folder(PARTICLES_PATH / "leaf5")),
-                self.reflect_images(import_folder(PARTICLES_PATH / "leaf6")),
+                import_folder(paths.PARTICLES_DIR / "leaf1"),
+                import_folder(paths.PARTICLES_DIR / "leaf2"),
+                import_folder(paths.PARTICLES_DIR / "leaf3"),
+                import_folder(paths.PARTICLES_DIR / "leaf4"),
+                import_folder(paths.PARTICLES_DIR / "leaf5"),
+                import_folder(paths.PARTICLES_DIR / "leaf6"),
+                self.reflect_images(import_folder(paths.PARTICLES_DIR / "leaf1")),
+                self.reflect_images(import_folder(paths.PARTICLES_DIR / "leaf2")),
+                self.reflect_images(import_folder(paths.PARTICLES_DIR / "leaf3")),
+                self.reflect_images(import_folder(paths.PARTICLES_DIR / "leaf4")),
+                self.reflect_images(import_folder(paths.PARTICLES_DIR / "leaf5")),
+                self.reflect_images(import_folder(paths.PARTICLES_DIR / "leaf6")),
             ),
         }
 

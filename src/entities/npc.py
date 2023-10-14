@@ -2,7 +2,7 @@ import pygame
 
 from data.npc_data import npcs, NPC_NAMES
 from .entity import Entity
-from settings import FPS, HITBOX_OFFSET, NPC_PATH
+from settings import game_settings, paths
 from ui.speech_bubble import SpeechBubble
 from utils.support import import_folder
 
@@ -19,7 +19,7 @@ class NPC(Entity):
 
         # movement
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET["npc"])
+        self.hitbox = self.rect.inflate(-6, game_settings.HITBOX_OFFSET["npc"])
         self.obstacle_sprites = obstacle_sprites
 
         # info
@@ -39,7 +39,7 @@ class NPC(Entity):
             "left": [],
             "right": [],
         }
-        npc_path = NPC_PATH / f"{name}"
+        npc_path = paths.NPC_DIR / f"{name}"
         for animation in self.animations.keys():
             full_path = npc_path / animation
             self.animations[animation] = import_folder(full_path)
@@ -82,7 +82,9 @@ class NPC(Entity):
         if distance <= self.notice_radius:
             if not hasattr(self, "speech_bubble"):
                 self.speech_bubble = SpeechBubble(self.speech[0], (self.rect.x, self.rect.y - 30))
-            self.speech_bubble.update(self.clock.tick(FPS))  # Update the speech bubble
+            self.speech_bubble.update(
+                self.clock.tick(game_settings.FPS)
+            )  # Update the speech bubble
         elif hasattr(self, "speech_bubble"):
             delattr(self, "speech_bubble")  # Remove the speech bubble if player is out of range
 

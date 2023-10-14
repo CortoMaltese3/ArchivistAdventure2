@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pathlib import Path
 import sys
 
@@ -10,71 +11,86 @@ else:
     # Else use the path of the script being run
     BASE_PATH = Path(__file__).parent.parent
 
-# Get the main directories of the application
-AUDIO_PATH = BASE_PATH / "audio"
-CODE_PATH = BASE_PATH / "src"
-GRAPHICS_PATH = BASE_PATH / "graphics"
-LEVEL_PATH = BASE_PATH / "maps"
 
-# Get secondary graphics directories of the application
-ENTITIES_GRAPH_PATH = GRAPHICS_PATH / "entities"
-UI_GRAPH_PATH = GRAPHICS_PATH / "ui"
-WORLD_GRAPH_PATH = GRAPHICS_PATH / "world"
+@dataclass(frozen=True)
+class Paths:
+    # Get the main directories of the application
+    AUDIO_DIR: Path = BASE_PATH / "audio"
+    CODE_DIR: Path = BASE_PATH / "src"
+    GRAPHICS_DIR: Path = BASE_PATH / "graphics"
+    LEVEL_DIR: Path = BASE_PATH / "maps"
 
-COMPANION_PATH = ENTITIES_GRAPH_PATH / "companions"
-ICONS_PATH = UI_GRAPH_PATH / "icons"
-MONSTERS_PATH = ENTITIES_GRAPH_PATH / "monsters"
-NPC_PATH = ENTITIES_GRAPH_PATH / "npc"
-OVERWORLD_PATH = WORLD_GRAPH_PATH / "overworld"
-PARTICLES_PATH = GRAPHICS_PATH / "particles"
-PLAYER_PATH = ENTITIES_GRAPH_PATH / "player"
-WEAPONS_PATH = GRAPHICS_PATH / "weapons"
+    # Get secondary graphics directories of the application
+    ENTITIES_GRAPH_DIR: Path = GRAPHICS_DIR / "entities"
+    UI_GRAPH_DIR: Path = GRAPHICS_DIR / "ui"
+    WORLD_GRAPH_DIR: Path = GRAPHICS_DIR / "world"
 
-# Get secondary audio directories of the application
-ENTITIES_AUDIO_PATH = AUDIO_PATH / 'entities'
-ENEMY_AUDIO_PATH = ENTITIES_AUDIO_PATH / 'enemy'
+    COMPANION_DIR: Path = ENTITIES_GRAPH_DIR / "companions"
+    ICONS_DIR: Path = UI_GRAPH_DIR / "icons"
+    MONSTERS_DIR: Path = ENTITIES_GRAPH_DIR / "monsters"
+    NPC_DIR: Path = ENTITIES_GRAPH_DIR / "npc"
+    OVERWORLD_DIR: Path = WORLD_GRAPH_DIR / "overworld"
+    PARTICLES_DIR: Path = GRAPHICS_DIR / "particles"
+    PLAYER_DIR: Path = ENTITIES_GRAPH_DIR / "player"
+    WEAPONS_DIR: Path = GRAPHICS_DIR / "weapons"
 
-MAGIC_AUDIO_PATH = AUDIO_PATH / 'magic'
-WEAPONS_AUDIO_PATH = AUDIO_PATH / 'weapons'
-WORLD_AUDIO_PATH = AUDIO_PATH / 'world'
+    # Get secondary audio directories of the application
+    ENTITIES_AUDIO_DIR: Path = AUDIO_DIR / "entities"
+    ENEMY_AUDIO_DIR: Path = ENTITIES_AUDIO_DIR / "enemy"
+
+    MAGIC_AUDIO_DIR: Path = AUDIO_DIR / "magic"
+    WEAPONS_AUDIO_DIR: Path = AUDIO_DIR / "weapons"
+    WORLD_AUDIO_DIR: Path = AUDIO_DIR / "world"
+
+    FAVICON_PATH = ICONS_DIR / "icon.ico"
+    UI_FONT_PATH = UI_GRAPH_DIR / "font" / "joystix.ttf"
+
 
 # game setup
-WIDTH = 1280
-HEIGHT = 720
-FPS = 60
-TILESIZE = 64
-HITBOX_OFFSET = {
-    "player": -26,
-    "object": -40,
-    "grass": -10,
-    "invisible": 0,
-    "npc": -26,
-    "companion": -26,
-}
+@dataclass(frozen=True)
+class GameSettings:
+    WIDTH: int = 1280
+    HEIGHT: int = 720
+    FPS: int = 60
+    TILESIZE: int = 64
+    HITBOX_OFFSET = {
+        "player": -26,
+        "object": -40,
+        "grass": -10,
+        "invisible": 0,
+        "npc": -26,
+        "companion": -26,
+    }
 
-# ui
-BAR_HEIGHT = 20
-HEALTH_BAR_WIDTH = 200
-ENERGY_BAR_WIDTH = 140
-ITEM_BOX_SIZE = 80
+    # ui
+    BAR_HEIGHT: int = 20
+    HEALTH_BAR_WIDTH: int = 200
+    ENERGY_BAR_WIDTH: int = 140
+    ITEM_BOX_SIZE: int = 80
 
-# general colors
-WATER_COLOR = "#71ddee"
-UI_BG_COLOR = "#222222"
-UI_BORDER_COLOR = "#111111"
-TEXT_COLOR = "#EEEEEE"
+    # general colors
+    WATER_COLOR: str = "#71ddee"
+    UI_BG_COLOR: str = "#222222"
+    UI_BORDER_COLOR: str = "#111111"
+    TEXT_COLOR: str = "#EEEEEE"
 
-# ui colors
-HEALTH_COLOR = "red"
-ENERGY_COLOR = "blue"
-UI_BORDER_COLOR_ACTIVE = "gold"
-BLACK_COLOR = "black"
+    # ui colors
+    HEALTH_COLOR: str = "red"
+    ENERGY_COLOR: str = "blue"
+    UI_BORDER_COLOR_ACTIVE: str = "gold"
+    BLACK_COLOR: str = "black"
 
-# text
-LINE_SPACING = 5
-UI_FONT = UI_GRAPH_PATH / "font" / "joystix.ttf"
-UI_FONT_SIZE = 18
-UI_FONT_WIDTH = 15
+    # text
+    CAPTION: str = "Archivist Adventure 2"
+    LINE_SPACING: int = 5
 
-# sound
-DEFAULT_VOLUME = 0.5
+    UI_FONT_SIZE: int = 18
+    UI_FONT_WIDTH: int = 15
+
+    # sound
+    DEFAULT_VOLUME: float = 0.5
+
+
+# Create module-level instances
+game_settings = GameSettings()
+paths = Paths()

@@ -2,7 +2,7 @@ import pygame
 
 from data.magic_data import magic_data
 from data.weapon_data import weapon_data
-from settings import HITBOX_OFFSET, PLAYER_PATH, WEAPONS_AUDIO_PATH
+from settings import game_settings, paths
 from utils.support import import_folder
 from .entity import Entity
 
@@ -19,9 +19,11 @@ class Player(Entity):
         input_handler,
     ):
         super().__init__(groups)
-        self.image = pygame.image.load(PLAYER_PATH / "down_idle" / "idle_down.png").convert_alpha()
+        self.image = pygame.image.load(
+            paths.PLAYER_DIR / "down_idle" / "idle_down.png"
+        ).convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET["player"])
+        self.hitbox = self.rect.inflate(-6, game_settings.HITBOX_OFFSET["player"])
 
         # input setup
         self.input_handler = input_handler
@@ -79,7 +81,7 @@ class Player(Entity):
         self.invulnerability_duration = 500
 
         # import a sound
-        self.weapon_attack_sound = pygame.mixer.Sound(WEAPONS_AUDIO_PATH / "sword.wav")
+        self.weapon_attack_sound = pygame.mixer.Sound(paths.WEAPONS_AUDIO_DIR / "sword.wav")
         self.weapon_attack_sound.set_volume(0.4)
 
     def import_player_assets(self):
@@ -99,7 +101,7 @@ class Player(Entity):
         }
 
         for animation in self.animations.keys():
-            full_path = PLAYER_PATH / animation
+            full_path = paths.PLAYER_DIR / animation
             self.animations[animation] = import_folder(full_path)
 
     def input(self):

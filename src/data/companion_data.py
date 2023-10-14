@@ -1,4 +1,4 @@
-from settings import COMPANION_PATH
+from settings import paths
 
 COMPANION_NAMES = {500: "laika"}
 
@@ -8,7 +8,7 @@ COMPANION_SPEECHES = {
 
 def create_companion(id):
     name = COMPANION_NAMES[id]
-    sprite_path = COMPANION_PATH / name / "idle" / "down" / "down_0.png"
+    sprite_path = paths.COMPANION_DIR / name / "idle" / "down" / "down_0.png"
     speech = COMPANION_SPEECHES.get(id, ["..."]) # default speech if none found
     return {"id": id, "name": name, "sprite": sprite_path, "speech": speech}
 

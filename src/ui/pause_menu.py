@@ -4,7 +4,7 @@ import pygame
 from enum import Enum
 import sys
 
-from settings import HEIGHT, WIDTH
+from settings import game_settings
 
 
 class MenuOption(Enum):
@@ -30,8 +30,8 @@ class PauseMenu:
             self.display_surface.blit(
                 text,
                 (
-                    WIDTH // 2 - text.get_width() // 2,
-                    HEIGHT // 2 - text.get_height() // 2 + index * 40,
+                    game_settings.WIDTH // 2 - text.get_width() // 2,
+                    game_settings.HEIGHT // 2 - text.get_height() // 2 + index * 40,
                 ),
             )
 

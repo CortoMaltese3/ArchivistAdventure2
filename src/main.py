@@ -3,16 +3,16 @@ import sys
 import pygame
 
 from levels.manager import LevelManager
-from settings import BLACK_COLOR, FPS, HEIGHT, ICONS_PATH, WIDTH
+from settings import game_settings, paths
 
 
 class Game:
     def __init__(self):
         # general setup
         pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Archivist Adventure 2")
-        icon = pygame.image.load(ICONS_PATH / "icon.ico")
+        self.screen = pygame.display.set_mode((game_settings.WIDTH, game_settings.HEIGHT))
+        pygame.display.set_caption(game_settings.CAPTION)
+        icon = pygame.image.load(paths.FAVICON_PATH)
         pygame.display.set_icon(icon)
         self.clock = pygame.time.Clock()
 
@@ -26,10 +26,10 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            self.screen.fill(BLACK_COLOR)
+            self.screen.fill(game_settings.BLACK_COLOR)
             self.level_manager.run_current_level()
             pygame.display.update()
-            self.clock.tick(FPS)
+            self.clock.tick(game_settings.FPS)
 
 
 if __name__ == "__main__":

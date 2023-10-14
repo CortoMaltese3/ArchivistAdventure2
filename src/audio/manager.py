@@ -1,21 +1,21 @@
 import pygame
 
-from settings import DEFAULT_VOLUME, WORLD_AUDIO_PATH
+from settings import game_settings, paths
 
 
 class AudioManager:
     def __init__(self):
         self.current_music = None
         self.music_paths = {
-            "overworld": WORLD_AUDIO_PATH / "overworld.ogg",
-            "0": WORLD_AUDIO_PATH / "0.ogg",
-            "1": WORLD_AUDIO_PATH / "1.ogg",
+            "overworld": paths.WORLD_AUDIO_DIR / "overworld.ogg",
+            "0": paths.WORLD_AUDIO_DIR / "0.ogg",
+            "1": paths.WORLD_AUDIO_DIR / "1.ogg",
         }
         self.music_objects = {
             key: pygame.mixer.Sound(path) for key, path in self.music_paths.items()
         }
         for sound in self.music_objects.values():
-            sound.set_volume(DEFAULT_VOLUME)
+            sound.set_volume(game_settings.DEFAULT_VOLUME)
 
     def _stop_current_music(self):
         if self.current_music:

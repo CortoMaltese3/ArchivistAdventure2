@@ -1,16 +1,16 @@
 import pygame
 import textwrap
 
-from settings import LINE_SPACING, UI_FONT, UI_FONT_SIZE, UI_FONT_WIDTH
+from settings import game_settings
 
 
 class SpeechBubble:
-    def __init__(self, text, pos, max_width=UI_FONT_WIDTH):
+    def __init__(self, text, pos, max_width=game_settings.UI_FONT_WIDTH):
         self.full_text = text
         self.current_text = ""
         self.pos = pos
         self.max_width = max_width
-        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
+        self.font = pygame.font.Font(game_settings.UI_FONT_PATH, game_settings.UI_FONT_SIZE)
         self.image = self.create_bubble_image()
         self.timer = 0
         self.typing_speed = 50  # Time in milliseconds between each letter
@@ -22,7 +22,7 @@ class SpeechBubble:
         max_text_width = max(text_surface.get_width() for text_surface in text_surfaces)
 
         total_height = sum(
-            text_surface.get_height() + LINE_SPACING for text_surface in text_surfaces
+            text_surface.get_height() + game_settings.LINE_SPACING for text_surface in text_surfaces
         )
         bubble_surface = pygame.Surface((max_text_width + 20, total_height + 10), pygame.SRCALPHA)
         pygame.draw.rect(bubble_surface, (255, 255, 255, 200), bubble_surface.get_rect(), 0)

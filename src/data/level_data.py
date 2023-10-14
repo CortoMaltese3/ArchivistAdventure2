@@ -1,17 +1,17 @@
-from settings import LEVEL_PATH, OVERWORLD_PATH, WORLD_AUDIO_PATH
+from settings import paths
 
 
 def create_level(level_num, node_pos):
     return {
-        "ground": LEVEL_PATH / str(level_num) / "ground.png",
-        "constraints": LEVEL_PATH / str(level_num) / "map_FloorBlocks.csv",
-        "entities": LEVEL_PATH / str(level_num) / "map_Entities.csv",
-        "grass": LEVEL_PATH / str(level_num) / "map_Grass.csv",
-        "objects": LEVEL_PATH / str(level_num) / "map_Objects.csv",
-        "node_graphics": OVERWORLD_PATH / str(level_num),
+        "ground": paths.LEVEL_DIR / str(level_num) / "ground.png",
+        "constraints": paths.LEVEL_DIR / str(level_num) / "map_FloorBlocks.csv",
+        "entities": paths.LEVEL_DIR / str(level_num) / "map_Entities.csv",
+        "grass": paths.LEVEL_DIR / str(level_num) / "map_Grass.csv",
+        "objects": paths.LEVEL_DIR / str(level_num) / "map_Objects.csv",
+        "node_graphics": paths.OVERWORLD_DIR / str(level_num),
         "node_pos": node_pos,
         "unlock": level_num + 1,
-        "bg_music": WORLD_AUDIO_PATH / f"{str(level_num)}.ogg",
+        "bg_music": paths.WORLD_AUDIO_DIR / f"{str(level_num)}.ogg",
     }
 
 

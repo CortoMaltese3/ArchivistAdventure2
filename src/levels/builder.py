@@ -1,6 +1,6 @@
 from random import choice
 
-from settings import TILESIZE, WORLD_GRAPH_PATH
+from settings import game_settings, paths
 from ui.tile import Tile
 from utils.support import import_csv_layout, import_folder
 
@@ -34,16 +34,16 @@ class LevelBuilder:
             "entities": import_csv_layout(self.level_data["entities"]),
         }
         graphics = {
-            "grass": import_folder(WORLD_GRAPH_PATH / "grass"),
-            "objects": import_folder(WORLD_GRAPH_PATH / "objects"),
+            "grass": import_folder(paths.WORLD_GRAPH_DIR / "grass"),
+            "objects": import_folder(paths.WORLD_GRAPH_DIR / "objects"),
         }
 
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
                     if col != "-1":
-                        x = col_index * TILESIZE
-                        y = row_index * TILESIZE
+                        x = col_index * game_settings.TILESIZE
+                        y = row_index * game_settings.TILESIZE
                         if style == "boundary":
                             Tile((x, y), [self.obstacle_sprites], "invisible")
                         if style == "grass":
@@ -88,8 +88,8 @@ class EntityBuilder:
         for row_index, row in enumerate(self.entities_layout):
             for col_index, col in enumerate(row):
                 if col != "-1":
-                    x = col_index * TILESIZE
-                    y = row_index * TILESIZE
+                    x = col_index * game_settings.TILESIZE
+                    y = row_index * game_settings.TILESIZE
                     if col == "394":
                         self.player = Player(
                             (x, y),

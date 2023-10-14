@@ -1,6 +1,6 @@
 import pygame
 
-from settings import WEAPONS_PATH
+from settings import paths
 
 
 class Weapon(pygame.sprite.Sprite):
@@ -10,7 +10,7 @@ class Weapon(pygame.sprite.Sprite):
         direction = player.status.split("_")[0]
 
         # graphic
-        full_path = WEAPONS_PATH / f"{player.weapon}" / f"{direction}.png"
+        full_path = paths.WEAPONS_DIR / f"{player.weapon}" / f"{direction}.png"
         self.image = pygame.image.load(full_path).convert_alpha()
 
         # placement

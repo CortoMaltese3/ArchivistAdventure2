@@ -1,7 +1,7 @@
 import pygame
 
 from data.level_data import levels
-from settings import OVERWORLD_PATH
+from settings import paths
 from user.input_handler import InputHandler
 from utils.support import import_folder
 
@@ -44,7 +44,7 @@ class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
-        self.image = pygame.image.load(OVERWORLD_PATH / "selector.png").convert_alpha()
+        self.image = pygame.image.load(paths.OVERWORLD_DIR / "selector.png").convert_alpha()
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):
