@@ -2,7 +2,7 @@
 
 block_cipher = None
 
-a = Analysis(['code/main.py'],
+a = Analysis(['main.py'],
              pathex=['/'],
              binaries=[],
              datas=[('audio/', 'audio/'),
@@ -36,4 +36,4 @@ exe = EXE(pyz,
           upx_compress=False,
           runtime_tmpdir=None,
           console=False,
-          icon='graphics/icons/icon.ico')
+          icon='graphics/ui/icons/icon.ico')
