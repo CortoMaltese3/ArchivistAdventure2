@@ -6,8 +6,8 @@ from src.settings import game_settings, paths
 
 
 class Magic:
-    def __init__(self, animation_player):
-        self.animation_player = animation_player
+    def __init__(self, animation):
+        self.animation = animation
         self.sounds = {
             "heal": pygame.mixer.Sound(paths.MAGIC_AUDIO_DIR / "heal.wav"),
             "flame": pygame.mixer.Sound(paths.MAGIC_AUDIO_DIR / "fire.wav"),
@@ -20,8 +20,8 @@ class Magic:
             player.energy -= cost
             if player.health >= player.stats["health"]:
                 player.health = player.stats["health"]
-            self.animation_player.create_particles("aura", player.rect.center, groups)
-            self.animation_player.create_particles("heal", player.rect.center, groups)
+            self.animation.create_particles("aura", player.rect.center, groups)
+            self.animation.create_particles("heal", player.rect.center, groups)
 
     def flame(self, player, cost, groups):
         if player.energy >= cost:
@@ -48,7 +48,7 @@ class Magic:
                     y = player.rect.centery + randint(
                         -game_settings.TILESIZE // 3, game_settings.TILESIZE // 3
                     )
-                    self.animation_player.create_particles("flame", (x, y), groups)
+                    self.animation.create_particles("flame", (x, y), groups)
                 else:  # vertical
                     offset_y = (direction.y * i) * game_settings.TILESIZE
                     x = player.rect.centerx + randint(
@@ -59,4 +59,4 @@ class Magic:
                         + offset_y
                         + randint(-game_settings.TILESIZE // 3, game_settings.TILESIZE // 3)
                     )
-                    self.animation_player.create_particles("flame", (x, y), groups)
+                    self.animation.create_particles("flame", (x, y), groups)

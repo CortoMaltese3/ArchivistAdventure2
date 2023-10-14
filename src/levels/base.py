@@ -46,8 +46,8 @@ class Level:
         self.ui = UI()
 
         # particles
-        self.animation_player = Animation()
-        self.magic_player = Magic(self.animation_player)
+        self.animation = Animation()
+        self.magic = Magic(self.animation)
 
         self.level_builder = LevelBuilder(self.level_data)
         self.level_builder.set_sprite_groups(
@@ -76,10 +76,10 @@ class Level:
 
     def create_magic(self, style, strength, cost):
         if style == "heal":
-            self.magic_player.heal(self.player, strength, cost, [self.visible_sprites])
+            self.magic.heal(self.player, strength, cost, [self.visible_sprites])
 
         if style == "flame":
-            self.magic_player.flame(self.player, cost, [self.visible_sprites, self.attack_sprites])
+            self.magic.flame(self.player, cost, [self.visible_sprites, self.attack_sprites])
 
     def destroy_attack(self):
         if self.current_attack:
@@ -98,7 +98,7 @@ class Level:
                             pos = target_sprite.rect.center
                             offset = pygame.math.Vector2(0, 75)
                             for leaf in range(randint(3, 6)):
-                                self.animation_player.create_grass_particles(
+                                self.animation.create_grass_particles(
                                     pos - offset, [self.visible_sprites]
                                 )
                             target_sprite.kill()
@@ -110,12 +110,12 @@ class Level:
             self.player.health -= amount
             self.player.vulnerable = False
             self.player.hurt_time = pygame.time.get_ticks()
-            self.animation_player.create_particles(
+            self.animation.create_particles(
                 attack_type, self.player.rect.center, [self.visible_sprites]
             )
 
     def trigger_death_particles(self, pos, particle_type):
-        self.animation_player.create_particles(particle_type, pos, self.visible_sprites)
+        self.animation.create_particles(particle_type, pos, self.visible_sprites)
 
     def add_exp(self, amount):
         self.player.exp += amount
