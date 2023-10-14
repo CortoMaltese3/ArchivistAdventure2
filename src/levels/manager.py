@@ -1,6 +1,6 @@
 from enum import Enum, auto
 
-from audio.manager import AudioManager
+from src.audio.manager import AudioManager
 from .base import Level
 from .overworld import Overworld
 

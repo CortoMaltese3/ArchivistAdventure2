@@ -1,16 +1,16 @@
 from random import choice
 
-from settings import game_settings, paths
-from ui.tile import Tile
-from utils.support import import_csv_layout, import_folder
+from src.settings import game_settings, paths
+from src.ui.tile import Tile
+from src.utils.support import import_csv_layout, import_folder
 
-from entities.player import Player
-from entities.npc import NPC
-from entities.companion import Companion
-from entities.enemy import Enemy
+from src.entities.player import Player
+from src.entities.npc import NPC
+from src.entities.companion import Companion
+from src.entities.enemy import Enemy
 
-from data.companion_data import companions
-from data.npc_data import npcs
+from src.data.companion_data import companions
+from src.data.npc_data import npcs
 
 
 class LevelBuilder:

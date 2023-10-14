@@ -1,7 +1,7 @@
 import pygame
 import textwrap
 
-from settings import game_settings
+from src.settings import game_settings, paths
 
 
 class SpeechBubble:
@@ -10,7 +10,7 @@ class SpeechBubble:
         self.current_text = ""
         self.pos = pos
         self.max_width = max_width
-        self.font = pygame.font.Font(game_settings.UI_FONT_PATH, game_settings.UI_FONT_SIZE)
+        self.font = pygame.font.Font(paths.UI_FONT_PATH, game_settings.UI_FONT_SIZE)
         self.image = self.create_bubble_image()
         self.timer = 0
         self.typing_speed = 50  # Time in milliseconds between each letter

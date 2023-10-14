@@ -1,9 +1,9 @@
 import pygame
 
-from data.level_data import levels
-from settings import paths
-from user.input_handler import InputHandler
-from utils.support import import_folder
+from src.data.level_data import levels
+from src.settings import paths
+from src.user.input_handler import InputHandler
+from src.utils.support import import_folder
 
 
 class Node(pygame.sprite.Sprite):

@@ -1,9 +1,9 @@
 import pygame
 
-from data.enemy_data import monster_data
+from src.data.enemy_data import monster_data
 from .entity import Entity
-from settings import paths
-from utils.support import import_folder
+from src.settings import paths
+from src.utils.support import import_folder
 
 
 class Enemy(Entity):

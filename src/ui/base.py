@@ -1,8 +1,8 @@
 import pygame
 
-from data.magic_data import magic_data
-from data.weapon_data import weapon_data
-from settings import game_settings, paths
+from src.data.magic_data import magic_data
+from src.data.weapon_data import weapon_data
+from src.settings import game_settings, paths
 
 
 class UI:

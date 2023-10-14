@@ -1,6 +1,6 @@
 import pygame
 
-from settings import paths
+from src.settings import paths
 
 
 class Weapon(pygame.sprite.Sprite):

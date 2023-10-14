@@ -1,4 +1,4 @@
-from settings import paths
+from src.settings import paths
 
 # weapons
 weapon_data = {

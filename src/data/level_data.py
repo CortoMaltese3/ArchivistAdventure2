@@ -1,4 +1,4 @@
-from settings import paths
+from src.settings import paths
 
 
 def create_level(level_num, node_pos):

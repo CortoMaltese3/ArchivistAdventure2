@@ -1,4 +1,4 @@
-from settings import paths
+from src.settings import paths
 
 COMPANION_NAMES = {500: "laika"}
 

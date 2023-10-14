@@ -1,4 +1,4 @@
-from settings import paths
+from src.settings import paths
 
 # enemy
 monster_data = {

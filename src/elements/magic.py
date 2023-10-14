@@ -1,7 +1,8 @@
 from random import randint
 
 import pygame
-from settings import game_settings, paths
+
+from src.settings import game_settings, paths
 
 
 class MagicPlayer:

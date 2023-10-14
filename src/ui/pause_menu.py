@@ -4,7 +4,7 @@ import pygame
 from enum import Enum
 import sys
 
-from settings import game_settings
+from src.settings import game_settings
 
 
 class MenuOption(Enum):

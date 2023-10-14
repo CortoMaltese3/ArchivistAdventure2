@@ -2,8 +2,8 @@ import sys
 
 import pygame
 
-from levels.manager import LevelManager
-from settings import game_settings, paths
+from src.levels.manager import LevelManager
+from src.settings import game_settings, paths
 
 
 class Game:

@@ -2,8 +2,8 @@ from random import choice
 
 import pygame
 
-from settings import paths
-from utils.support import import_folder
+from src.settings import paths
+from src.utils.support import import_folder
 
 
 class AnimationPlayer:

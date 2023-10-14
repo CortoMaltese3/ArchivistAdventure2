@@ -1,6 +1,6 @@
 import pygame
 
-from data.level_data import levels
+from src.data.level_data import levels
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self, stage):

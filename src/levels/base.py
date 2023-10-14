@@ -4,14 +4,14 @@ import pygame
 
 from .builder import LevelBuilder, EntityBuilder
 from .camera import YSortCameraGroup
-from data.level_data import levels
-from elements.magic import MagicPlayer
-from elements.particles import AnimationPlayer
-from elements.weapon import Weapon
-from ui.base import UI
-from ui.pause_menu import MenuOption, PauseMenu
-from user.input_handler import InputHandler
-from utils.support import import_csv_layout
+from src.data.level_data import levels
+from src.elements.magic import MagicPlayer
+from src.elements.particles import AnimationPlayer
+from src.elements.weapon import Weapon
+from src.ui.base import UI
+from src.ui.pause_menu import MenuOption, PauseMenu
+from src.user.input_handler import InputHandler
+from src.utils.support import import_csv_layout
 
 
 class Level:
