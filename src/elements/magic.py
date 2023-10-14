@@ -5,7 +5,7 @@ import pygame
 from src.settings import game_settings, paths
 
 
-class MagicPlayer:
+class Magic:
     def __init__(self, animation_player):
         self.animation_player = animation_player
         self.sounds = {

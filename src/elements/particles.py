@@ -6,7 +6,7 @@ from src.settings import paths
 from src.utils.support import import_folder
 
 
-class AnimationPlayer:
+class Animation:
     def __init__(self):
         self.frames = {
             # magic

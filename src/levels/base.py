@@ -5,8 +5,8 @@ import pygame
 from .builder import LevelBuilder, EntityBuilder
 from .camera import YSortCameraGroup
 from src.data.level_data import levels
-from src.elements.magic import MagicPlayer
-from src.elements.particles import AnimationPlayer
+from src.elements.magic import Magic
+from src.elements.particles import Animation
 from src.elements.weapon import Weapon
 from src.ui.base import UI
 from src.ui.pause_menu import MenuOption, PauseMenu
@@ -46,8 +46,8 @@ class Level:
         self.ui = UI()
 
         # particles
-        self.animation_player = AnimationPlayer()
-        self.magic_player = MagicPlayer(self.animation_player)
+        self.animation_player = Animation()
+        self.magic_player = Magic(self.animation_player)
 
         self.level_builder = LevelBuilder(self.level_data)
         self.level_builder.set_sprite_groups(

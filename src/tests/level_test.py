@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pygame
 
-from elements.magic import MagicPlayer
+from elements.magic import Magic
 from elements.weapon import Weapon
 from levels.base import Level
 
@@ -56,7 +56,7 @@ class TestLevel(unittest.TestCase):
         self.level.create_attack()
         self.assertIsNotNone(self.level.current_attack)
 
-    @patch.object(MagicPlayer, "flame")  # Patching MagicPlayer class
+    @patch.object(Magic, "flame")  # Patching Magic class
     def test_create_magic(self, mock_flame):
         # Testing create_magic method with flame style
         self.level.create_magic("flame", 5, 10)
