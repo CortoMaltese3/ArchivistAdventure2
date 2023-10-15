@@ -25,6 +25,7 @@ class NPC(Entity):
         # info
         npc_id = [id for id, npc_name in NPC_NAMES.items() if npc_name == name][0]
         npc_info = npcs[npc_id]
+        self.id = npc_id
         self.name = name
         self.notice_radius = npc_info["notice_radius"]
 
@@ -55,6 +56,18 @@ class NPC(Entity):
             direction = pygame.math.Vector2()
 
         return distance, direction
+
+    def grant_to_player(self, player):
+        if self.get_player_distance_direction(player)[0] <= self.notice_radius:
+            weapon = npcs[self.id].get("weapon")
+            magic = npcs[self.id].get("magic")
+
+            # Checks if the NPC has a weapon available for the player
+            if weapon:
+                player.add_weapon(weapon)
+            # Checks if the NPC has a magic available for the player
+            if magic:
+                player.add_magic(magic)
 
     def get_status(self, player):
         distance, direction = self.get_player_distance_direction(player)
@@ -91,6 +104,7 @@ class NPC(Entity):
     def update_npc(self, player):
         self.get_status(player)
         self.handle_speech(player)
+        self.grant_to_player(player)
 
     def update(self):
         pass

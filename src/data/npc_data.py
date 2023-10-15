@@ -10,12 +10,27 @@ NPC_SPEECHES = {
     401: ["What happened? You look pale! Here, drink this homemade potion!"],
 }
 
+NPC_WEAPON_GRANT = {400: "lance", 401: "sword"}
+
+NPC_MAGIC_GRANT = {400: "heal", 401: "flame"}
+
 
 def create_npc(id):
     name = NPC_NAMES[id]
     sprite_path = paths.NPC_DIR / name / "down" / "down_0.png"
     speech = NPC_SPEECHES.get(id, ["Hello, Archivist!"])  # default speech if none found
-    return {"id": id, "name": name, "sprite": sprite_path, "speech": speech, "notice_radius": 80}
+    weapon = NPC_WEAPON_GRANT.get(id, None)
+    magic = NPC_MAGIC_GRANT.get(id, None)
+    npc = {
+        "id": id,
+        "name": name,
+        "sprite": sprite_path,
+        "speech": speech,
+        "notice_radius": 80,
+        "weapon": weapon,
+        "magic": magic,
+    }
+    return npc
 
 
 npcs = {id: create_npc(id) for id in NPC_NAMES.keys()}
