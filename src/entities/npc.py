@@ -1,6 +1,8 @@
 import pygame
 
+from src.data.magic_data import magic_data
 from src.data.npc_data import npcs, NPC_NAMES
+from src.data.weapon_data import weapon_data
 from .entity import Entity
 from src.settings import game_settings, paths
 from src.ui.speech_bubble import SpeechBubble
@@ -64,10 +66,12 @@ class NPC(Entity):
 
             # Checks if the NPC has a weapon available for the player
             if weapon:
-                player.add_weapon(weapon)
+                weapon_info = {weapon: weapon_data.get(weapon)}
+                player.add_weapon(weapon_info)
             # Checks if the NPC has a magic available for the player
             if magic:
-                player.add_magic(magic)
+                magic_info = {magic: magic_data.get(magic)}
+                player.add_magic(magic_info)
 
     def get_status(self, player):
         distance, direction = self.get_player_distance_direction(player)

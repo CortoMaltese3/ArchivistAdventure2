@@ -12,7 +12,7 @@ NPC_SPEECHES = {
 
 NPC_WEAPON_GRANT = {400: "lance", 401: "sword"}
 
-NPC_MAGIC_GRANT = {400: "heal", 401: "flame"}
+NPC_MAGIC_GRANT = {401: "flame", 400: "heal"}
 
 
 def create_npc(id):

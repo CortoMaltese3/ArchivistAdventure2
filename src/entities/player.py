@@ -1,7 +1,7 @@
 import pygame
 
-from src.data.magic_data import magic_data
-from src.data.weapon_data import weapon_data
+# from src.data.magic_data import magic_data
+# from src.data.weapon_data import weapon_data
 from .entity import Entity
 from src.settings import game_settings, paths
 from src.utils.support import import_folder
@@ -41,18 +41,18 @@ class Player(Entity):
         # weapon
         self.create_attack = create_attack
         self.destroy_attack = destroy_attack
-        self.weapon_index = None
+        self.current_weapon = None
+        self.current_weapon_name = None
         self.weapons = []
-        self.weapon = self.weapons[self.weapon_index] if self.weapon_index is not None else None
         self.can_switch_weapon = True
         self.weapon_switch_time = None
         self.switch_duration_cooldown = 200
 
         # magic
         self.create_magic = create_magic
-        self.magic_index = None
+        self.current_magic = None
+        self.current_magic_name = None
         self.magics = []
-        self.magic = self.magics[self.magic_index] if self.magic_index is not None else None
         self.can_switch_magic = True
         self.magic_switch_time = None
 
@@ -129,36 +129,45 @@ class Player(Entity):
                 self.direction.x = 0
 
             # attack input
-            if actions["attack"] and self.weapon:
+            if actions["attack"] and self.current_weapon:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
                 self.weapon_attack_sound.play()
 
             # magic input
-            if actions["magic"] and self.magic:
+            if actions["magic"] and self.current_magic:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                style = self.magic
-                strength = (
-                    list(magic_data.values())[self.magic_index]["strength"] + self.stats["magic"]
-                )
-                cost = list(magic_data.values())[self.magic_index]["cost"]
-                self.create_magic(style, strength, cost)
+                strength = self.current_magic.get(self.current_magic_name).get("strength") + self.stats["magic"]
+                cost = self.current_magic.get(self.current_magic_name).get("cost")
+                self.create_magic(self.current_magic_name, strength, cost)
 
             # weapon switching
-            if actions["switch_weapon"] and self.can_switch_weapon:
+            if actions["switch_weapon"] and self.can_switch_weapon and self.current_weapon:
                 self.can_switch_weapon = False
                 self.weapon_switch_time = pygame.time.get_ticks()
-                self.weapon_index = (self.weapon_index + 1) % len(self.weapons)
-                self.weapon = self.weapons[self.weapon_index]
+
+                # Find the current weapon's position in the list
+                current_position = self.weapons.index(self.current_weapon)
+
+                # Switch to the next weapon
+                next_position = (current_position + 1) % len(self.weapons)
+                self.current_weapon = self.weapons[next_position]
+                self.current_weapon_name = list(self.current_weapon.keys())[0]
 
             # magic switching
-            if actions["switch_magic"] and self.can_switch_magic:
+            if actions["switch_magic"] and self.can_switch_magic and self.current_magic:
                 self.can_switch_magic = False
                 self.magic_switch_time = pygame.time.get_ticks()
-                self.magic_index = (self.magic_index + 1) % len(self.magics)
-                self.magic = self.magics[self.magic_index]
+
+                # Find the current weapon's position in the list
+                current_position = self.magics.index(self.current_magic)
+
+                # Switch to the next weapon
+                next_position = (current_position + 1) % len(self.magics)
+                self.current_magic = self.magics[next_position]
+                self.current_magic_name = list(self.current_magic.keys())[0]
 
     def get_status(self):
         # idle status
@@ -182,10 +191,10 @@ class Player(Entity):
         current_time = pygame.time.get_ticks()
 
         if self.attacking:
-            if self.weapon:
+            if self.current_weapon:
                 if (
                     current_time - self.attack_time
-                    >= self.attack_cooldown + weapon_data[self.weapon]["cooldown"]
+                    >= self.attack_cooldown + self.current_weapon.get(self.current_weapon_name).get('cooldown')
                 ):
                     self.attacking = False
                     self.destroy_attack()
@@ -223,12 +232,12 @@ class Player(Entity):
 
     def get_full_weapon_damage(self):
         base_damage = self.stats["attack"]
-        weapon_damage = weapon_data[self.weapon]["damage"]
+        weapon_damage = self.current_weapon.get(self.current_weapon_name).get("damage")
         return base_damage + weapon_damage
 
     def get_full_magic_damage(self):
         base_damage = self.stats["magic"]
-        spell_damage = magic_data[self.magic]["strength"]
+        spell_damage = self.current_magic.get(self.current_magic_name).get("strength")
         return base_damage + spell_damage
 
     def get_value_by_index(self, index):
@@ -243,19 +252,21 @@ class Player(Entity):
         else:
             self.energy = self.stats["energy"]
 
-    def add_weapon(self, weapon_name):
-        if weapon_name not in self.weapons and weapon_name in weapon_data:
-            self.weapons.append(weapon_name)
-            if self.weapon_index is None:
-                self.weapon_index = self.weapons.index(weapon_name)
-                self.weapon = weapon_name
+    def add_weapon(self, weapon):
+        if weapon not in self.weapons:
+            self.weapons.append(weapon)
+            if self.current_weapon is None:
+                self.current_weapon = weapon
+                weapon_name = list(weapon.keys())[0]
+                self.current_weapon_name = weapon_name
 
-    def add_magic(self, magic_name):
-        if magic_name not in self.magics and magic_name in magic_data:
-            self.magics.append(magic_name)
-            if self.magic_index is None:
-                self.magic_index = self.magics.index(magic_name)
-                self.magic = magic_name
+    def add_magic(self, magic):
+        if magic not in self.magics:
+            self.magics.append(magic)
+            if self.current_magic is None:
+                self.current_magic = magic
+                magic_name = list(magic.keys())[0]
+                self.current_magic_name = magic_name
 
     def update(self):
         self.input()

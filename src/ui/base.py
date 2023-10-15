@@ -21,15 +21,18 @@ class UI:
 
         # convert weapon dictionary
         self.weapon_graphics = []
-        for weapon in weapon_data.values():
-            path = weapon["graphic"]
-            weapon = pygame.image.load(path).convert_alpha()
+        for weapon_name in weapon_data:
+            weapon_info = weapon_data.get(weapon_name)
+            path = weapon_info.get("graphic")
+            weapon = {weapon_name: pygame.image.load(path).convert_alpha()}
             self.weapon_graphics.append(weapon)
 
         # convert magic dictionary
         self.magic_graphics = []
-        for magic in magic_data.values():
-            magic = pygame.image.load(magic["graphic"]).convert_alpha()
+        for magic_name in magic_data:
+            magic_info = magic_data.get(magic_name)
+            path = magic_info.get("graphic")
+            magic = {magic_name: pygame.image.load(path).convert_alpha()}
             self.magic_graphics.append(magic)
 
     def show_bar(self, current, max_amount, bg_rect, color):
@@ -67,20 +70,26 @@ class UI:
             pygame.draw.rect(self.display_surface, game_settings.UI_BORDER_COLOR, bg_rect, 3)
         return bg_rect
 
-    def weapon_overlay(self, weapon_index, has_switched):
-        if weapon_index is None:
+    def weapon_overlay(self, weapon, has_switched):
+        if not weapon:
             return
+        weapon_name = list(weapon.keys())[0]
         bg_rect = self.selection_box(10, 630, has_switched)
-        weapon_surf = self.weapon_graphics[weapon_index]
+        weapon_surf = next(
+            (weapon[weapon_name] for weapon in self.weapon_graphics if weapon_name in weapon), None
+        )
         weapon_rect = weapon_surf.get_rect(center=bg_rect.center)
 
         self.display_surface.blit(weapon_surf, weapon_rect)
 
-    def magic_overlay(self, magic_index, has_switched):
-        if magic_index is None:
+    def magic_overlay(self, magic, has_switched):
+        if not magic:
             return
+        magic_name = list(magic.keys())[0]
         bg_rect = self.selection_box(80, 635, has_switched)
-        magic_surf = self.magic_graphics[magic_index]
+        magic_surf = next(
+            (magic[magic_name] for magic in self.magic_graphics if magic_name in magic), None
+        )
         magic_rect = magic_surf.get_rect(center=bg_rect.center)
 
         self.display_surface.blit(magic_surf, magic_rect)
@@ -95,5 +104,5 @@ class UI:
 
         self.show_exp(player.exp)
 
-        self.weapon_overlay(player.weapon_index, not player.can_switch_weapon)
-        self.magic_overlay(player.magic_index, not player.can_switch_magic)
+        self.weapon_overlay(player.current_weapon, not player.can_switch_weapon)
+        self.magic_overlay(player.current_magic, not player.can_switch_magic)
