@@ -100,7 +100,7 @@ class EntityBuilder:
                             callbacks["create_magic"],
                             *args,
                         )
-                    elif col in ["400", "401"]:
+                    elif col in ["400", "401", "402"]:
                         npc_data = npcs[int(col)]
                         NPC(
                             name=npc_data["name"],
