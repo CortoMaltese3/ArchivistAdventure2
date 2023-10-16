@@ -65,13 +65,6 @@ class Player(Entity):
             "magic": 10,
             "speed": 10,
         }
-        self.upgrade_cost = {
-            "health": 100,
-            "energy": 100,
-            "attack": 100,
-            "magic": 100,
-            "speed": 100,
-        }
         self.health = self.stats["health"] * 0.5
         self.energy = self.stats["energy"] * 0.8
         self.exp = 0
@@ -244,12 +237,6 @@ class Player(Entity):
         base_damage = self.stats["magic"]
         spell_damage = self.current_magic.get(self.current_magic_name).get("strength")
         return base_damage + spell_damage
-
-    def get_value_by_index(self, index):
-        return list(self.stats.values())[index]
-
-    def get_cost_by_index(self, index):
-        return list(self.upgrade_cost.values())[index]
 
     def energy_recovery(self):
         if self.energy < self.stats["energy"]:

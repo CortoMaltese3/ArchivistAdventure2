@@ -88,8 +88,8 @@ class GameSettings:
     UI_FONT_WIDTH: int = 15
 
     # sound
-    MAIN_VOLUME: float = 0.0
-    SFX_VOLUME: float = 0.0
+    MAIN_VOLUME: float = 0.3
+    SFX_VOLUME: float = 0.2
 
 
 # Create module-level instances

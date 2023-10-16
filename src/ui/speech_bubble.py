@@ -52,7 +52,7 @@ class SpeechBubble:
                     ],
                 )
             elif self.show_indicator == "exit":
-                exit_text = self.font.render("EXIT", True, (0, 0, 0))
+                exit_text = self.font.render("[EXIT]", True, (128, 128, 128))
                 exit_pos = (
                     (bubble_surface.get_width() - exit_text.get_width()) // 2,
                     bubble_surface.get_height() - exit_text.get_height() - 5,
