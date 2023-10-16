@@ -17,7 +17,7 @@ class LevelManager:
         self.audio_manager = AudioManager()
 
         self.current_level = None
-        self.overworld = Overworld(0, 1, self.screen, self.load_level)
+        self.overworld = Overworld(0, 2, self.screen, self.load_level)
 
     def load_overworld(self):
         self.audio_manager.play_music("overworld")

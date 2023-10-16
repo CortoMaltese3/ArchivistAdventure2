@@ -10,6 +10,7 @@ class AudioManager:
             "overworld": paths.WORLD_AUDIO_DIR / "overworld.ogg",
             "0": paths.WORLD_AUDIO_DIR / "0.ogg",
             "1": paths.WORLD_AUDIO_DIR / "1.ogg",
+            "2": paths.WORLD_AUDIO_DIR / "2.ogg",
         }
         self.music_objects = {
             key: pygame.mixer.Sound(path) for key, path in self.music_paths.items()

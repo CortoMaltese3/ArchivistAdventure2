@@ -16,6 +16,7 @@ def create_level(level_num, node_pos):
 
 
 levels = {
-    0: create_level(0, (110, 400)),
-    1: create_level(1, (300, 220)),
+    0: create_level(0, (200, 400)),
+    1: create_level(1, (400, 200)),
+    2: create_level(2, (600, 500)),
 }
