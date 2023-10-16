@@ -8,7 +8,7 @@ NPC_NAMES = {
 
 NPC_SPEECHES = {
     400: ["Quick! We need to save my godfather!"],
-    401: ["What happened? You look pale! Here, drink this homemade potion!"],
+    401: ["What happened? You look pale! You need to learn how to balance yourself. Here, take this healing spell!", "...also you need to eat some more!"],
     402: ["They did what? They took my brother? NOBODY MESSES WITH MY BROTHER.. AAAAARGHHHH"],
 }
 
@@ -28,7 +28,7 @@ def create_npc(id):
         "name": name,
         "sprite": sprite_path,
         "speech": speech,
-        "notice_radius": 80,
+        "notice_radius": 50,
         "weapon": weapon,
         "magic": magic,
     }
