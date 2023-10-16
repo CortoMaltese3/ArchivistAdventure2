@@ -84,7 +84,7 @@ class Player(Entity):
 
         # import a sound
         self.weapon_attack_sound = pygame.mixer.Sound(paths.WEAPONS_AUDIO_DIR / "sword.wav")
-        self.weapon_attack_sound.set_volume(0.4)
+        self.weapon_attack_sound.set_volume(game_settings.SFX_VOLUME)
 
     def import_player_assets(self):
         self.animations = {
@@ -133,13 +133,17 @@ class Player(Entity):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
+                self.weapon_attack_sound.set_volume(game_settings.SFX_VOLUME)
                 self.weapon_attack_sound.play()
 
             # magic input
             if actions["magic"] and self.current_magic:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                strength = self.current_magic.get(self.current_magic_name).get("strength") + self.stats["magic"]
+                strength = (
+                    self.current_magic.get(self.current_magic_name).get("strength")
+                    + self.stats["magic"]
+                )
                 cost = self.current_magic.get(self.current_magic_name).get("cost")
                 self.create_magic(self.current_magic_name, strength, cost)
 
@@ -194,7 +198,8 @@ class Player(Entity):
             if self.current_weapon:
                 if (
                     current_time - self.attack_time
-                    >= self.attack_cooldown + self.current_weapon.get(self.current_weapon_name).get('cooldown')
+                    >= self.attack_cooldown
+                    + self.current_weapon.get(self.current_weapon_name).get("cooldown")
                 ):
                     self.attacking = False
                     self.destroy_attack()

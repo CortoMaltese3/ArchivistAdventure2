@@ -15,6 +15,7 @@ class Magic:
 
     def heal(self, player, strength, cost, groups):
         if player.energy >= cost:
+            self.sounds["heal"].set_volume(game_settings.SFX_VOLUME)
             self.sounds["heal"].play()
             player.health += strength
             player.energy -= cost
@@ -26,6 +27,7 @@ class Magic:
     def flame(self, player, cost, groups):
         if player.energy >= cost:
             player.energy -= cost
+            self.sounds["flame"].set_volume(game_settings.SFX_VOLUME)
             self.sounds["flame"].play()
 
             if player.status.split("_")[0] == "right":

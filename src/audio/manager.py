@@ -15,7 +15,7 @@ class AudioManager:
             key: pygame.mixer.Sound(path) for key, path in self.music_paths.items()
         }
         for sound in self.music_objects.values():
-            sound.set_volume(game_settings.DEFAULT_VOLUME)
+            sound.set_volume(game_settings.MAIN_VOLUME)
 
     def _stop_current_music(self):
         if self.current_music:
