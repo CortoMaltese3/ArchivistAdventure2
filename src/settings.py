@@ -45,6 +45,8 @@ class Paths:
     FAVICON_PATH = ICONS_DIR / "icon.ico"
     UI_FONT_PATH = UI_GRAPH_DIR / "font" / "joystix.ttf"
 
+    OVERWORLD_BG_PATH: Path = OVERWORLD_DIR / "background.png"
+
 
 # game setup
 @dataclass(frozen=True)
@@ -88,7 +90,7 @@ class GameSettings:
     UI_FONT_WIDTH: int = 15
 
     # sound
-    MAIN_VOLUME: float = 0.3
+    MAIN_VOLUME: float = 0.2
     SFX_VOLUME: float = 0.2
 
 

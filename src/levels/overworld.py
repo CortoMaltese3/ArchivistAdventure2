@@ -1,7 +1,7 @@
 import pygame
 
 from src.data.level_data import levels
-from src.settings import paths
+from src.settings import game_settings, paths
 from src.user.input_handler import InputHandler
 from src.utils.support import import_folder
 
@@ -58,6 +58,10 @@ class Overworld:
         self.max_level = max_level
         self.current_level = start_level
         self.create_level = create_level
+        self.background_image = pygame.image.load(paths.OVERWORLD_BG_PATH).convert()
+        self.background_image = pygame.transform.scale(
+            self.background_image, (game_settings.WIDTH, game_settings.HEIGHT)
+        )
 
         # controller setup
         self.input_handler = InputHandler()
@@ -144,6 +148,7 @@ class Overworld:
                 self.allow_input = True
 
     def run(self):
+        self.display_surface.blit(self.background_image, (0, 0))
         self.input_timer()
         self.input()
         self.update_icon_pos()
