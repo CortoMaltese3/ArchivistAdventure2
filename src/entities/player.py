@@ -126,7 +126,8 @@ class Player(Entity):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
-                self.weapon_attack_sound.set_volume(game_settings.SFX_VOLUME)
+                if self.weapon_attack_sound:  # Check if the sound exists
+                    self.weapon_attack_sound.play()
                 self.weapon_attack_sound.play()
 
             # magic input
@@ -251,6 +252,7 @@ class Player(Entity):
                 self.current_weapon = weapon
                 weapon_name = list(weapon.keys())[0]
                 self.current_weapon_name = weapon_name
+                self.set_weapon_sound()
 
     def add_magic(self, magic):
         if magic not in self.magics:
@@ -259,6 +261,18 @@ class Player(Entity):
                 self.current_magic = magic
                 magic_name = list(magic.keys())[0]
                 self.current_magic_name = magic_name
+
+    def set_weapon_sound(self):
+        try:
+            self.weapon_attack_sound = pygame.mixer.Sound(
+                paths.WEAPONS_AUDIO_DIR / f"{self.current_weapon_name}.wav"
+            )
+            self.weapon_attack_sound.set_volume(game_settings.SFX_VOLUME)
+        except pygame.error:
+            # Handle the exception if the sound file doesn't exist.
+            # For now, we'll just print an error. You can handle this differently if needed.
+            print(f"No sound file found for weapon: {self.current_weapon_name}")
+            self.weapon_attack_sound = None
 
     def update(self):
         self.input()

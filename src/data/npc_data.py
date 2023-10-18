@@ -6,7 +6,7 @@ NPC_SPEECHES = {
     400: ["Quick! We need to save my godfather!"],
     401: [
         "What happened? You look pale!",
-        "You need to learn how to balance yourself. Let me teach youthis healing spell!",
+        "You need to learn how to balance yourself.", "Here, let me teach yout his healing spell!",
         "...also you need to eat some more!",
     ],
     402: [
