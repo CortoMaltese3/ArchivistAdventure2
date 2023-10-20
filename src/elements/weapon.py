@@ -25,9 +25,9 @@ class Weapon(pygame.sprite.Sprite):
             )
         elif direction == "down":
             self.rect = self.image.get_rect(
-                midtop=player.rect.midbottom + pygame.math.Vector2(-10, -10)
+                midtop=player.rect.midbottom + pygame.math.Vector2(-10, -20)
             )
         else:
             self.rect = self.image.get_rect(
-                midbottom=player.rect.midtop + pygame.math.Vector2(-10, 10)
+                midbottom=player.rect.midtop + pygame.math.Vector2(-10, 20)
             )
