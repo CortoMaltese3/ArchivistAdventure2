@@ -1,8 +1,10 @@
+from pathlib import Path
 import sys
 import sqlite3
-from pathlib import Path
 
 from src.settings import paths
+from .provider import WeaponDataProvider
+from .provider import MagicDataProvider
 
 
 class DatabaseManager:
@@ -33,18 +35,12 @@ class DatabaseManager:
             self.init_database()
 
     def init_database(self):
-        """Initialize the database with necessary tables and schema."""
-        with self.connect() as conn:
-            # Example table creation, modify as needed
-            conn.execute(
-                """
-                CREATE TABLE IF NOT EXISTS example (
-                    id INTEGER PRIMARY KEY,
-                    data TEXT
-                )
-            """
-            )
-            conn.commit()
+        """Initialize game data in the database."""
+        weapon_provider = WeaponDataProvider(self)
+        weapon_provider.initialize_data()
+
+        magic_provider = MagicDataProvider(self)
+        magic_provider.initialize_data()
 
     def connect(self):
         """Open a new database connection."""

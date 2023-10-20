@@ -1,10 +1,18 @@
-from .weapon_data import weapon_data as weapon_data_module
-from .magic_data import magic_data as magic_data_module
+from .weapon_data import weapon_data
+from .magic_data import magic_data
 
 
 class BaseDataProvider:
     def __init__(self, db_manager):
         self.db_manager = db_manager
+
+    def create_table(self, table_name, schema, data_dict):
+        columns_definition = ", ".join(
+            [f"{column} {data_type}" for column, data_type in schema.items()]
+        )
+
+        query = f"CREATE TABLE IF NOT EXISTS {table_name} ({columns_definition})"
+        self.db_manager.execute_query(query)
 
     def create(self, table_name, data_dict):
         columns = ", ".join(data_dict.keys())
@@ -30,15 +38,43 @@ class BaseDataProvider:
 
 class WeaponDataProvider(BaseDataProvider):
     TABLE_NAME = "weapon"
+    WEAPON_SCHEMA = {
+        "name": "TEXT PRIMARY KEY",
+        "cooldown": "INTEGER",
+        "damage": "INTEGER",
+    }
 
     def initialize_data(self):
-        for weapon, attributes in weapon_data_module.weapon_data.items():
-            self.create(self.TABLE_NAME, attributes)
+        # Create the weapon table first
+        self.create_table(self.TABLE_NAME, self.WEAPON_SCHEMA, weapon_data)
+        
+        # Insert weapon data into the table
+        for weapon_name, attributes in weapon_data.items():
+            data_to_insert = {
+                "name": weapon_name,
+                "cooldown": attributes.get("cooldown"),
+                "damage": attributes.get("damage")
+            }
+            self.create(self.TABLE_NAME, data_to_insert)
 
 
 class MagicDataProvider(BaseDataProvider):
     TABLE_NAME = "magic"
+    MAGIC_SCHEMA = {
+        "name": "TEXT PRIMARY KEY",
+        "cost": "INTEGER",
+        "strength": "INTEGER",
+    }
 
     def initialize_data(self):
-        for magic, attributes in magic_data_module.magic_data.items():
-            self.create(self.TABLE_NAME, attributes)
+        # Create the magic table first
+        self.create_table(self.TABLE_NAME, self.MAGIC_SCHEMA, magic_data)
+        
+        # Insert magic data into the magic_data
+        for magic_name, attributes in magic_data.items():
+            data_to_insert = {
+                "name": magic_name,
+                "strength": attributes.get("strength"),
+                "cost": attributes.get("cost")
+            }
+            self.create(self.TABLE_NAME, data_to_insert)

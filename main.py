@@ -3,8 +3,6 @@ import sys
 import pygame
 
 from src.data.manager import DatabaseManager
-from src.data.provider import MagicDataProvider
-from src.data.provider import WeaponDataProvider
 from src.levels.manager import LevelManager
 from src.settings import game_settings, paths
 
@@ -26,15 +24,6 @@ class Game:
         self.level_manager = LevelManager(self.screen)
         self.level_manager.load_overworld()
 
-    def initialize_db(self):
-        db_manager = DatabaseManager()
-
-        weapon_provider = WeaponDataProvider(db_manager)
-        weapon_provider.initialize_data()
-
-        magic_provider = MagicDataProvider(db_manager)
-        magic_provider.initialize_data()
-
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -50,5 +39,4 @@ class Game:
 
 if __name__ == "__main__":
     game = Game()
-    # game.initialize_db()
     game.run()
