@@ -1,4 +1,10 @@
+# Python
 __pycache__
+
+# General
 .vscode
 build
 dist
+
+# Database
+*.db

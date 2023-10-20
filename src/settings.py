@@ -16,6 +16,7 @@ else:
 class Paths:
     # Get the main directories of the application
     AUDIO_DIR: Path = BASE_PATH / "audio"
+    BASE_PATH: Path = BASE_PATH
     CODE_DIR: Path = BASE_PATH / "src"
     GRAPHICS_DIR: Path = BASE_PATH / "graphics"
     LEVEL_DIR: Path = BASE_PATH / "maps"
