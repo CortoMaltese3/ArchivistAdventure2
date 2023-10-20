@@ -6,7 +6,7 @@ NPC_SPEECHES = {
     400: ["Quick! We need to save my godfather!"],
     401: [
         "What happened? You look pale!",
-        "You need to learn how to balance yourself.", "Here, let me teach yout his healing spell!",
+        "You need to learn how to balance yourself.", "Here, let me teach you this healing spell!",
         "...also you need to eat some more!",
     ],
     402: [
@@ -36,7 +36,7 @@ def create_npc(id):
         "name": name,
         "sprite": sprite_path,
         "speech": speech,
-        "notice_radius": 50,
+        "notice_radius": 80,
         "weapon": weapon,
         "magic": magic,
     }
