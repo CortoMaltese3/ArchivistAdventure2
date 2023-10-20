@@ -1,5 +1,6 @@
-from .weapon_data import weapon_data
+from .enemy_data import monster_data
 from .magic_data import magic_data
+from .weapon_data import weapon_data
 
 
 class BaseDataProvider:
@@ -38,7 +39,7 @@ class BaseDataProvider:
 
 class WeaponDataProvider(BaseDataProvider):
     TABLE_NAME = "weapon"
-    WEAPON_SCHEMA = {
+    SCHEMA = {
         "name": "TEXT PRIMARY KEY",
         "cooldown": "INTEGER",
         "damage": "INTEGER",
@@ -46,21 +47,21 @@ class WeaponDataProvider(BaseDataProvider):
 
     def initialize_data(self):
         # Create the weapon table first
-        self.create_table(self.TABLE_NAME, self.WEAPON_SCHEMA, weapon_data)
-        
+        self.create_table(self.TABLE_NAME, self.SCHEMA, weapon_data)
+
         # Insert weapon data into the table
-        for weapon_name, attributes in weapon_data.items():
+        for name, attributes in weapon_data.items():
             data_to_insert = {
-                "name": weapon_name,
+                "name": name,
                 "cooldown": attributes.get("cooldown"),
-                "damage": attributes.get("damage")
+                "damage": attributes.get("damage"),
             }
             self.create(self.TABLE_NAME, data_to_insert)
 
 
 class MagicDataProvider(BaseDataProvider):
     TABLE_NAME = "magic"
-    MAGIC_SCHEMA = {
+    SCHEMA = {
         "name": "TEXT PRIMARY KEY",
         "cost": "INTEGER",
         "strength": "INTEGER",
@@ -68,13 +69,47 @@ class MagicDataProvider(BaseDataProvider):
 
     def initialize_data(self):
         # Create the magic table first
-        self.create_table(self.TABLE_NAME, self.MAGIC_SCHEMA, magic_data)
-        
+        self.create_table(self.TABLE_NAME, self.SCHEMA, magic_data)
+
         # Insert magic data into the magic_data
-        for magic_name, attributes in magic_data.items():
+        for name, attributes in magic_data.items():
             data_to_insert = {
-                "name": magic_name,
+                "name": name,
                 "strength": attributes.get("strength"),
-                "cost": attributes.get("cost")
+                "cost": attributes.get("cost"),
+            }
+            self.create(self.TABLE_NAME, data_to_insert)
+
+
+class MonsterDataProvider(BaseDataProvider):
+    TABLE_NAME = "monster"
+    SCHEMA = {
+        "name": "TEXT PRIMARY KEY",
+        "health": "INTEGER",
+        "exp": "INTEGER",
+        "damage": "INTEGER",
+        "attack_type": "TEXT",
+        "speed": "INTEGER",
+        "resistance": "INTEGER",
+        "attack_radius": "INTEGER",
+        "notice_radius": "INTEGER",
+    }
+
+    def initialize_data(self):
+        # Create the magic table first
+        self.create_table(self.TABLE_NAME, self.SCHEMA, monster_data)
+
+        # Insert magic data into the magic_data
+        for name, attributes in monster_data.items():
+            data_to_insert = {
+                "name": name,
+                "health": attributes.get("health"),
+                "exp": attributes.get("exp"),
+                "damage": attributes.get("damage"),
+                "attack_type": attributes.get("attack_type"),
+                "speed": attributes.get("speed"),
+                "resistance": attributes.get("resistance"),
+                "attack_radius": attributes.get("attack_radius"),
+                "notice_radius": attributes.get("notice_radius"),
             }
             self.create(self.TABLE_NAME, data_to_insert)

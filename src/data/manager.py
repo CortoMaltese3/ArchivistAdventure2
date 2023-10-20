@@ -3,8 +3,7 @@ import sys
 import sqlite3
 
 from src.settings import paths
-from .provider import WeaponDataProvider
-from .provider import MagicDataProvider
+from .provider import MagicDataProvider, MonsterDataProvider, WeaponDataProvider
 
 
 class DatabaseManager:
@@ -12,11 +11,11 @@ class DatabaseManager:
         if self.is_packaged():
             directory = Path.home() / "ArchivistAdventure2"
             self.ensure_directory_exists(directory)
-            self.db_path = directory / "archivist_adventure_2.db"
+            self.db_path = directory / "archivist_adventure_2.sqlite"
             self.ensure_database_exists()
         else:
             directory = paths.BASE_PATH
-            self.db_path = directory / "archivist_adventure_2.db"
+            self.db_path = directory / "archivist_adventure_2.sqlite"
             self.ensure_database_exists()
 
     @staticmethod
@@ -41,6 +40,9 @@ class DatabaseManager:
 
         magic_provider = MagicDataProvider(self)
         magic_provider.initialize_data()
+
+        monnster_provider = MonsterDataProvider(self)
+        monnster_provider.initialize_data()
 
     def connect(self):
         """Open a new database connection."""
